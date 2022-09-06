@@ -4,21 +4,21 @@ import Navbar from '../components/Navbar'
 export default function Login() {
 
   const handleSubmit = async (e) => {
-    e.preventDevault()
+    e.preventDefault()
     const data = {
       username: e.target.username.value,
       password: e.target.password.value
     }
-    const endpoint = 'https://locahost:5000/login'
+    const JSONdata = JSON.stringify(data)
+    const endpoint = 'http://localhost:8000/login'
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSONdata
     }
-    const response = await fetch(endpoint, options)
-    const result = await response.json()
+    await fetch(endpoint, options)
   }
 
   return (
