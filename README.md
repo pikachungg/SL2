@@ -8,11 +8,11 @@
 
 1. **backend**
 
-⋅⋅⋅ This folder contains the API code.
+⋅⋅⋅This folder contains the API code.⋅⋅
 
 2. **client**
 
-⋅⋅⋅ This folder contains the frontend code.
+⋅⋅⋅This folder contains the frontend code.⋅⋅
 
 ## Requirements
 
