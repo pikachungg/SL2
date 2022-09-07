@@ -1,12 +1,13 @@
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
+import styles from '../styles/Login.module.css'
 
 export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const data = {
-      username: e.target.username.value,
+      email: e.target.email.value,
       password: e.target.password.value
     }
     const JSONdata = JSON.stringify(data)
@@ -30,7 +31,7 @@ export default function Login() {
             <Navbar/>
             <form onSubmit={handleSubmit}>
               <div>
-                <input placeholder="username" type="text" id="username" name="username"/>
+                <input placeholder="email" type="text" id="email" name="email"/>
               </div>
               <div>
                 <input placeholder="password" type="password" id="password" name="password"/>

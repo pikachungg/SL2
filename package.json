@@ -1,0 +1,21 @@
+{
+  "name": "sl2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "(cd backend && npm install && npm start) & (cd client && npm install && npm run dev)",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dragoffs/SL2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dragoffs/SL2/issues"
+  },
+  "homepage": "https://github.com/Dragoffs/SL2#readme"
+}
