@@ -19,7 +19,16 @@ export default function Login() {
       },
       body: JSONdata
     }
-    await fetch(endpoint, options)
+    let res = await fetch(endpoint, options)
+    if (res.status === 200){
+      let user = await res.json()
+      console.log(user)
+    }
+    else{
+      //Handler error here
+      console.log("Wrong username")
+    }
+    
   }
 
   return (

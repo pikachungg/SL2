@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Dragoffs/SL2/issues"
   },
-  "homepage": "https://github.com/Dragoffs/SL2#readme"
+  "homepage": "https://github.com/Dragoffs/SL2#readme",
+  "dependencies": {
+    "js-cookie": "^3.0.1"
+  }
 }
