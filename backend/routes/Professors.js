@@ -22,4 +22,24 @@ const getProfessorById = router.get('/professors/uid/:uid', (req, res) => {
     })
 })
 
-module.exports = { getProfessorById }
+const getRecentStudentsNotifications = router.get('/professors/notifications/:professorid', (req, res) => {
+    let professorid = req.params.professorid
+    client.connect( async (err) => {
+        try{
+            const professorCollection = client.db("SL2").collection("Professors")
+            let professorsClasses = await professorCollection.findOne({_id: ObjectId(professorid)}, {projection: {courses: 1}})
+            let courses = professorsClasses.courses
+            let attemptsArray = []
+            let todaysDate = new Date()
+            console.log(todaysDate)
+            courses.forEach( course => {
+                console.log(course)
+            })
+        }
+        catch{
+            res.status(500).send(err)
+        }
+    })
+})
+
+module.exports = { getProfessorById, getRecentStudentsNotifications }
