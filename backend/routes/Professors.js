@@ -22,6 +22,83 @@ const getProfessorById = router.get('/professors/uid/:uid', (req, res) => {
     })
 })
 
+const addPinnedStudent = router.patch('/professors/pinned', (req, res) => {
+    let professorid = req.query.puid
+    let studentid = req.query.suid
+    client.connect( async (err) => {
+        try{
+            const professorCollection = client.db("SL2").collection("Professors")
+            const studentsCollection = client.db("SL2").collection("Students")
+            let student = await studentsCollection.findOne({'username': studentid})
+            if (student){
+                let professor = await professorCollection.findOne({_id: ObjectId(professorid)})
+                if (!professor.pinned.includes(studentid)){
+                    console.log("Insert here")
+                    professorCollection.updateOne({_id: ObjectId(professorid)}, {'$push': {'pinned': studentid}})
+                    res.status(200).send({'message': `Added ${studentid} to ${professorid}'s pinned`})
+                }
+                else{
+                    res.status(304).send({'message': `${studentid} already pinned by ${professorid}`})
+                }
+            }
+            else{
+                res.status(404).send({'message': 'Student not found'})
+            }
+        }
+        catch{
+            res.status(500).send(err)
+        }
+    })
+})
+
+const removePinnedStudent = router.delete('/professors/pinned', (req, res) => {
+    let professorid = req.query.puid
+    let studentid = req.query.suid
+    client.connect( async (err) => {
+        try{
+            const professorCollection = client.db("SL2").collection("Professors")
+            const studentsCollection = client.db("SL2").collection("Students")
+            let student = await studentsCollection.findOne({'username': studentid})
+            if (student){
+                let professor = await professorCollection.findOne({_id: ObjectId(professorid)})
+                if (professor.pinned.includes(studentid)){
+                    console.log("Insert here")
+                    professorCollection.updateOne({_id: ObjectId(professorid)}, {'$pull': {'pinned': studentid}})
+                    res.status(200).send({'message': `Removed ${studentid} from ${professorid}'s pinned`})
+                }
+                else{
+                    res.status(304).send({'message': `${studentid} is not pinned by ${professorid}`})
+                }
+            }
+            else{
+                res.status(404).send({'message': 'Student not found'})
+            }
+        }
+        catch{
+            res.status(500).send(err)
+        }
+    })
+})
+
+const getPinnedStudents = router.get('/professors/pinned/:uid', (req, res) => {
+    let uid = req.params.uid
+    client.connect( async (err) => {
+        try{
+            const collection = client.db("SL2").collection("Professors");
+            let professor = await collection.findOne({_id: ObjectId(uid)}, {projection: {password: 0}})
+            if (professor){
+                res.status(200).send(professor.pinned)
+            }
+            else{
+                res.status(404).send({'message': 'Professor not found'})
+            }
+        }
+        catch{
+            res.status(500).send(err)
+        }
+    })
+})
+
 const getRecentStudentsNotifications = router.get('/professors/notifications/:professorid', (req, res) => {
     let professorid = req.params.professorid
     client.connect( async (err) => {
@@ -64,4 +141,4 @@ const getRecentStudentsNotifications = router.get('/professors/notifications/:pr
     })
 })
 
-module.exports = { getProfessorById, getRecentStudentsNotifications }
+module.exports = { getProfessorById, getPinnedStudents, getRecentStudentsNotifications, addPinnedStudent, removePinnedStudent }

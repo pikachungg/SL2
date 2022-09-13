@@ -22,6 +22,12 @@ app.get('/professors/uid/:uid', professors.getProfessorById)
 
 app.get('/professors/notifications/:professorid', professors.getRecentStudentsNotifications)
 
+app.get('/professors/pinned/:uid', professors.getPinnedStudents)
+
+app.patch('/professors/pinned', professors.addPinnedStudent)
+
+app.delete('/professors/pinned', professors.removePinnedStudent)
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
