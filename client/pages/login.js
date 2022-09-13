@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import styles from '../styles/Login.module.css'
+import { useRouter } from 'next/router'
 
 export default function Login() {
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -22,7 +24,8 @@ export default function Login() {
     let res = await fetch(endpoint, options)
     if (res.status === 200){
       let user = await res.json()
-      console.log(user)
+      localStorage.setItem('user_sl2', user)
+      router.replace('/')
     }
     else{
       //Handler error here
