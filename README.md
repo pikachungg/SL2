@@ -17,5 +17,5 @@ This folder contains the frontend code.
 ## How to run
 
 1. Clone this repo `git clone https://github.com/Dragoffs/SL2.git`
-2. Move into the repo **Mac**:`cd SL2` **Windows**: `dir SL2`
+2. Move into the repo **Mac**:`cd SL2`
 3. Run `npm start`
