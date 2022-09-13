@@ -27,14 +27,36 @@ const getRecentStudentsNotifications = router.get('/professors/notifications/:pr
     client.connect( async (err) => {
         try{
             const professorCollection = client.db("SL2").collection("Professors")
+            const studentsCollection = client.db("SL2").collection("Students")
             let professorsClasses = await professorCollection.findOne({_id: ObjectId(professorid)}, {projection: {courses: 1}})
             let courses = professorsClasses.courses
-            let attemptsArray = []
-            let todaysDate = new Date()
-            console.log(todaysDate)
-            courses.forEach( course => {
-                console.log(course)
+            let studentsArr = []
+            let logs = []
+            for (const course of courses){
+                let students = await studentsCollection.find({courses: course}).toArray()
+                studentsArr.push(...students)
+            }
+            studentsArr.forEach( student => {
+                let newLogs = []
+                student.logs.forEach(log => {
+                    let jsonLog = {
+                        "username": student.username,
+                        "datetime": log.datetime,
+                        "result": log.result
+                    }
+                    newLogs.push(jsonLog)
+                })
+                logs.push(...newLogs)
             })
+            logs.sort( (a,b) => {
+                return new Date(a.datetime) - new Date(b.datetime)
+            })
+            if (logs.length <= 5){
+                res.status(200).send(logs)
+            }
+            else{
+                res.status(200).send(logs.slice(-5))
+            }
         }
         catch{
             res.status(500).send(err)
