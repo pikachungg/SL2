@@ -40,7 +40,7 @@ export default function Login() {
             <title>SL2 | Login</title>
        </Head>
        <main>
-            <Navbar/>
+            <Navbar isLogin={true} helloworld={"hello world"}/>
             <form onSubmit={handleSubmit}>
               <div>
                 <input placeholder="email" type="text" id="email" name="email"/>

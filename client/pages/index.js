@@ -1,27 +1,29 @@
 import styles from '../styles/Home.module.css'
 import { useEffect } from 'react';
 import { useRouter } from 'next/router'
+import Navbar from '../components/Navbar'
 
 export default function Home() {
-  const router = useRouter()
+  // const router = useRouter()
 
-  useEffect(() => {
-    if (localStorage.getItem('user_sl2') === null){
-      router.replace('/login')
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (localStorage.getItem('user_sl2') === null){
+  //     router.replace('/login')
+  //   }
+  // }, [])
 
-  const logout = (e) => {
-    e.preventDefault()
-    localStorage.clear()
-    router.replace('/login')
-  }
+  // const logout = (e) => {
+  //   e.preventDefault()
+  //   localStorage.clear()
+  //   router.replace('/login')
+  // }
   
 
   return (
     <div className={styles.container}>
-      <p>This is dashboard page</p>
-      <button onClick={logout}>Log out</button>
+      <Navbar/>
+      {/* <p>This is dashboard page</p> */}
+      {/* <button onClick={logout}>Log out</button> */}
     </div>
   )
 }
