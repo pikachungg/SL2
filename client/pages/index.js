@@ -1,6 +1,7 @@
 import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
+import StudentFilter from '../components/StudentFilter';
 
 export default function Home() {
   const router = useRouter()
@@ -56,6 +57,7 @@ export default function Home() {
           <h1>{element}</h1>
         ))
       }
+      <StudentFilter/>
       <button onClick={logout}>Log out</button>
     </div>
   )
