@@ -1,11 +1,12 @@
 import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
+import Navbar from '../components/Navbar'
 import StudentFilter from '../components/StudentFilter';
 
 export default function Home() {
-  const router = useRouter()
-
+  // const router = useRouter()
+  
   //This returns the professor entire object
   const [professor, setProfessor] = useState({})
   //This is the professor courses. Is an array, that contains class id as strings.
@@ -46,6 +47,8 @@ export default function Home() {
   
   return (
     <div className={styles.container}>
+      <Navbar/>
+      {/* <p>This is dashboard page</p> */}
       <p>This is dashboard page</p>
       {
         //This is an exmaple here, feel free to delete 49 to 53
