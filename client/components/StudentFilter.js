@@ -1,6 +1,9 @@
 import styles from '../styles/StudentFilter.module.css'
 import { useEffect, useState } from "react"
 
+import { RiErrorWarningFill } from 'react-icons/ri'
+import { IconContext } from "react-icons";
+
 export default function StudentFilter(){
 
     let classid = "ISTE 140-1" //This should be dynamic, hardcoded rn for testing purposes
@@ -16,24 +19,62 @@ export default function StudentFilter(){
             },
         }
 
+        fetch(endpoint, options)
+        .then( res => res.json())
+        .then( data => {
+            console.log(data)
+            setStudentList(data)
+        })
 
     }, [])
+
+    const calculateFailedLogins = (logs) => {
+        let count = 0
+        for (let i = 0; i < logs.length; i++){
+            if (logs[i].result == "Failure") 
+            count += 1
+        }
+        return (<p>{count} {count > 5 ? <IconContext.Provider value={{ color: 'red'}}><RiErrorWarningFill/></IconContext.Provider> : null}</p>)
+    }
+
+    const getLastLogin = (logs) => {
+
+    }
     
     return (
         <div className={styles.container}>
             <div className={styles.insideContainer}>
                 <div className={styles.insideContainerLeft}>
-                    <p>STUDENTS IN THIS COURSE SECTION:</p>
+                    <h3>STUDENTS IN THIS COURSE SECTION:</h3>
                     <p>Select a student to view their login analytics</p>
                 </div>
                 <div className={styles.insideContainerRight}>
-                    <p>This is search bar</p>
+                    <input></input>
                 </div>
             </div>
-            <table className={styles.table}> 
-                <thead>
-                    <tr>PIN</tr>
+            <table className={styles.table}>
+                <thead className={styles.tableheader}>
+                    <tr>
+                        <th className={styles.tableheaderpin}>PIN</th>
+                        <th className={styles.tableheadercolumn}>FULL NAME</th>
+                        <th className={styles.tableheadercolumn}>RIT USERNAME</th>
+                        <th className={styles.tableheadercolumn}># FAILED LOGIN</th>
+                        <th className={styles.tableheadercolumn}>LAST FAILED LOGIN</th>
+                    </tr>
                 </thead>
+                <tbody className={styles.tablebody}>
+                    {
+                        studentList.map( student => (
+                            <tr className={styles.tablerows}>
+                                <td className={styles.tablecolumnspin}><input type="checkbox"/></td>
+                                <td className={styles.tablecolumns}><b>{student.first_name} {student.last_name}</b></td>
+                                <td className={styles.tablecolumns}>{student.email.split('@')[0]}</td>
+                                <td className={styles.tablecolumns}>{calculateFailedLogins(student.logs)}</td>
+                                <td className={styles.tablecolumns}></td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
             </table>
         </div>
     )
