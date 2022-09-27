@@ -1,0 +1,47 @@
+
+.container{
+    margin-left: 20%;
+    background-color: white;
+    border-radius: 10px;
+    width: 15%;
+    padding: 20px;
+    height: 40vh;
+    box-shadow: 0 2.5px 2.5px 2.5px rgb(219, 219, 219);
+    border-bottom: 10px solid #FF6F00;
+}
+
+
+.title{
+    display: flex;
+}
+
+.titletext{
+    color: #FF6F00;
+    margin-left: 2%;
+    margin-bottom: 5%;
+}
+
+.table{
+    width: 100%;
+}
+
+.tablerow:nth-child(odd){
+    background: #F9F4F0;
+}
+
+.tablerow{
+    display: flex;
+    justify-content: space-between;
+    /* height: 50px; */
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.tablerowtext{
+}
+
+.deleteicon {
+    cursor: pointer;
+}
