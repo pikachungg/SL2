@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar'
 import StudentFilter from '../components/StudentFilter';
 
 export default function Home() {
-  // const router = useRouter()
+  const router = useRouter()
   
   //This returns the professor entire object
   const [professor, setProfessor] = useState({})
