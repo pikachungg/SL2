@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import Navbar from '../components/Navbar'
 import StudentFilter from '../components/StudentFilter';
+import StudentAlertBox from '../components/StudentAlertBox';
 
 export default function Home() {
   const router = useRouter()
@@ -61,6 +62,7 @@ export default function Home() {
         ))
       }
       <StudentFilter/>
+	  <StudentAlertBox/>
       <button onClick={logout}>Log out</button>
     </div>
   )
