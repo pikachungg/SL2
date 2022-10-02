@@ -27,7 +27,6 @@ export default function StudentAlertBox(){
         })
 
     }, [])
-	
 
 	const calculateFailedLogins = (logs) => {
 	   let count = 0
@@ -41,8 +40,6 @@ export default function StudentAlertBox(){
 			let sortedLogs = logs.sort(function(a, b) {
 				return new Date(b.datetime) - new Date(a.datetime)
 			})
-
-			console.log(sortedLogs)
 
 			// Current get date
 			let now = new Date()
