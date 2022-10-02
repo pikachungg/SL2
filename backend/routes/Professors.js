@@ -22,6 +22,26 @@ const getProfessorById = router.get('/professors/uid/:uid', (req, res) => {
     })
 })
 
+const getCoursesByProfessor = router.get('/professors/courses/:uid', (req, res) => {
+    let uid = req.params.uid;
+    client.connect( async (err) => {
+        try{
+            const collection = client.db("SL2").collection("Professors");
+            let query = ({_id: ObjectId(uid)});
+            let courses = await collection.find(query, {projection: {_id: 0, courses: 1}}).toArray()
+            if(courses){
+                res.status(200).send(courses)
+            }
+            else {
+                res.status(404).send({'message': 'Professor was not found'})
+            }
+        }
+        catch{
+            res.status(500).send(err)
+        }
+    })
+})
+
 const addPinnedStudent = router.patch('/professors/pinned', (req, res) => {
     let professorid = req.query.puid
     let studentid = req.query.suid
@@ -141,4 +161,4 @@ const getRecentStudentsNotifications = router.get('/professors/notifications/:pr
     })
 })
 
-module.exports = { getProfessorById, getPinnedStudents, getRecentStudentsNotifications, addPinnedStudent, removePinnedStudent }
+module.exports = { getProfessorById, getPinnedStudents, getRecentStudentsNotifications, addPinnedStudent, removePinnedStudent, getCoursesByProfessor }
