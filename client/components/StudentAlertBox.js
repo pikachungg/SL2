@@ -30,23 +30,47 @@ export default function StudentAlertBox(){
 	
 
 	const calculateFailedLogins = (logs) => {
-	    let count = 0
-	    for (let i = 0; i < logs.length; i++){
-	        if (logs[i].result == "Failure" || logs[i].result == "failure") 
-	        count += 1
-	    }
-	
-		let logins = count == 1 ? "login" : "logins"
-	
-		// Current get date
-		// Find all logs within 7 day range, calculate count from this
-		// store the most recent failure
-		// interpolate into return string / tag
-	
-		return (<p>{count} failed {logins}</p>)
-	}
+	   let count = 0
+		   // for (let i = 0; i < logs.length; i++){
+		   //     if (logs[i].result == "Failure" || logs[i].result == "failure") 
+		   //     count += 1
+		   // }
+		
+		
+			// Sort the logs
+			let sortedLogs = logs.sort(function(a, b) {
+				return new Date(b.datetime) - new Date(a.datetime)
+			})
 
-    const getLastLogin = (logs) => {
+			console.log(sortedLogs)
+
+			// Current get date
+			let now = new Date()
+			let weekRange = now.setDate(now.getDate() - 7)
+
+			// Find all logs within 7 day range, calculate count from this
+			for(let i = 0; i < sortedLogs.length; i++) {
+				if(new Date(sortedLogs[i].datetime) < weekRange) {
+					break
+				}
+				count += 1
+			}
+
+			// store the most recent failure
+			let mostRecent = new Date(sortedLogs[0].datetime)
+
+			let logins = (count == 1 ? "login" : "logins")
+
+			// interpolate into return string / tag
+			return (
+				<div>
+					<p>{count} failed {logins} in the past week</p>
+					<p>Last Failed Login: {mostRecent.toDateString()}, {mostRecent.toLocaleTimeString("en-US")}</p>
+				</div>
+			)
+		}
+
+		const getLastLogin = (logs) => {
 
     }
     
@@ -54,7 +78,7 @@ export default function StudentAlertBox(){
         <div className={styles.container}>
             <div className={styles.insideContainer}>
                 <div>
-					<IconContext.Provider value={{ color: 'orange' }}><RiErrorWarningFill/></IconContext.Provider> 
+					<IconContext.Provider value={{ color: 'orange'}}><RiErrorWarningFill/></IconContext.Provider> 
                     <h3>STUDENT ALERTS</h3>
                 </div>
             	<table className={styles.table}>
