@@ -88,7 +88,7 @@ export default function StudentAlertBox(){
 								<tr className={styles.tablerows}>
 									<td>
 										<h4>{student.first_name} {student.last_name}: {student.courses[0]}</h4>
-										<p>{calculateFailedLogins(student.logs)}</p>
+										{calculateFailedLogins(student.logs)}
 									</td>
 								</tr>
 							))
