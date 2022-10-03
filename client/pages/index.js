@@ -6,7 +6,7 @@ import StudentFilter from '../components/StudentFilter';
 import PinnedStudents from '../components/PinnedStudents';
 
 export default function Home() {
-  // const router = useRouter()
+  const router = useRouter()
   
   //This returns the professor entire object
   const [professor, setProfessor] = useState({})
@@ -38,7 +38,6 @@ export default function Home() {
 
   }, [])
 
-  console.log(professor)
 
   const logout = (e) => {
     e.preventDefault()
@@ -49,21 +48,30 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Navbar/>
-      {/* <p>This is dashboard page</p> */}
-      <p>This is dashboard page</p>
-      {
-        //This is an exmaple here, feel free to delete 49 to 53
-      }
-      <h2>Welcome back {professor.first_name} {professor.last_name}</h2>
-      <h3>Your email is {professor.email}</h3>
-      {
-        courses.map( element => (
-          <h1 key={element}>{element}</h1>
-        ))
-      }
-      <StudentFilter/>
-      <PinnedStudents/>
-      <button onClick={logout}>Log out</button>
+      <div className={styles.dashboard}>
+        <div className={styles.sectionlist}>
+            <div className={styles.dashheader}>
+              <img src="./images/dashlogo.png" alt="Dashboard Logo" className={styles.dashLogo}/>
+              <h1>Your Dashboard</h1>
+            </div>
+            <div className={styles.sectionselect}>
+            <hr></hr>
+              
+            <h2>Logged in as {professor.first_name} {professor.last_name} with e-mail {professor.email} | Select Course Section to View Login Analytics:</h2>
+                {
+                  courses.map( element => (
+                    <div className={styles.courselist}>{element}</div>
+                  ))
+                }
+              <StudentFilter/>
+            </div>
+            <button onClick={logout}>Log out</button>
+        </div>
+        
+        <div className={styles.chart}>{/* this is for the optional digest chart area*/}</div>
+        <div className={styles.alerts}>{/* this is for alert box */}</div>
+        <div className={styles.pinned}><PinnedStudents/></div>
+      </div>
     </div>
   )
 }

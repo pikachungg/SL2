@@ -35,8 +35,8 @@ export default function Login(props) {
             <div className={styles.navbar}>
                 <img src="./images/RIT_hor.png" alt="RIT Logo" className={styles.ritLogo}/>
                 <div className={styles.verticalLine}></div>
-                <h1 className={styles.title}>Student Login Logger</h1>
-                <button onClick={logout} style={optionalStyles} className={styles.logOut} id='logOut'>Log out</button>
+                <h1>Student Login Logger</h1>
+                <button onClick={logout} style={optionalStyles} className={styles.logOut} id='logOut'>Log Out</button>
             </div>
             <div className={styles.buttomline}></div>
         </div>
