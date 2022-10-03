@@ -1,4 +1,101 @@
 
 .login{
-    font-size: 500%;
+    font-size: 100%;
+}
+
+.container{
+    background-image: url('images/bg2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.bodytext{
+    display: grid;
+    grid-template-columns: 35% 65%;
+    grid-template-areas: 
+    'loginform introtext'
+    'loginform introtext';
+    padding-left: 50px;
+    padding-right: 10%;
+    padding-bottom: 50px;
+    padding-top: 30px;
+}
+
+
+.loginform{
+    grid-area: loginform;
+    margin: 30px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.349);
+    border-radius: 5px;
+}
+
+.loginform label{
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.loginform input::placeholder{
+    color: rgb(161, 161, 161);
+}
+
+
+.loginform input{
+    width: 90%;
+    margin: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 4px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 0.5px solid rgb(202, 202, 202);
+}
+
+.loginform h2{
+    padding-bottom: 20px;
+}
+
+.loginform button{
+    outline: none;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 50px;
+    background-color: #FF6C24;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.loginform a{
+    color:#FF6C24;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.loginform h3{
+    font-size: 12px;
+    font-weight: 500;
+    padding-bottom: 20px;
+}
+
+.introtext{
+    grid-area: introtext;
+}
+
+.introtext h1{
+    color: white;
+    padding: 30px;
+}
+
+.introtext h2{
+    font-size: 15px;
+    color: white;
+    padding: 30px;
+    line-height: 1.75;
+    padding-top: 0px;
+    padding-left: 35px;
+    padding-right: 100px;
+    font-weight: 500;;
 }
