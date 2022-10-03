@@ -37,7 +37,6 @@ export default function Home() {
 
   }, [])
 
-  console.log(professor)
 
   const logout = (e) => {
     e.preventDefault()
