@@ -1,4 +1,4 @@
-import styles from '../styles/StudentFilter.module.css'
+import styles from '../styles/StudentAlertBox.module.css'
 import { useEffect, useState } from "react"
 
 import { RiErrorWarningFill } from 'react-icons/ri'
@@ -60,7 +60,7 @@ export default function StudentAlertBox(){
 
 			// interpolate into return string / tag
 			return (
-				<div>
+				<div className={styles.description}>
 					<p>{count} failed {logins} in the past week</p>
 					<p>Last Failed Login: {mostRecent.toDateString()}, {mostRecent.toLocaleTimeString("en-US")}</p>
 				</div>
@@ -73,13 +73,13 @@ export default function StudentAlertBox(){
     
     return (
         <div className={styles.container}>
-            <div className={styles.insideContainer}>
-                <div>
-					<IconContext.Provider value={{ color: 'orange'}}><RiErrorWarningFill/></IconContext.Provider> 
+            <div className={styles}>
+                <div className={styles.title}>
+					<IconContext.Provider value={{ color: 'orange', size: '25px'}}><RiErrorWarningFill/></IconContext.Provider> 
                     <h3>STUDENT ALERTS</h3>
                 </div>
             	<table className={styles.table}>
-					<tbody className={styles.tablebody}>
+					<tbody className={styles}>
 						{
 							studentList.map( student => (
 								<tr className={styles.tablerows}>

@@ -62,7 +62,7 @@ export default function Home() {
         ))
       }
       <StudentFilter/>
-	  <StudentAlertBox/>
+	    <StudentAlertBox/>
       <button onClick={logout}>Log out</button>
     </div>
   )
