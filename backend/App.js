@@ -26,6 +26,8 @@ app.get('/professors/notifications/:professorid', professors.getRecentStudentsNo
 
 app.get('/professors/pinned/:uid', professors.getPinnedStudents)
 
+app.get('/students/id/:id', students.getStudentsById)
+
 app.patch('/professors/pinned', professors.addPinnedStudent)
 
 app.delete('/professors/pinned', professors.removePinnedStudent)

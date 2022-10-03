@@ -57,7 +57,7 @@
 }
 
 .tableheader{
-    color: #CD794D;
+    color: #E75C18;
     top: 0;
     background-color: white;
     position: sticky;
@@ -79,7 +79,7 @@
     text-align: center;
 }
 
-.tablerows:nth-child(even) {
+.tablerows:nth-child(odd) {
     background: #F9F4F0;
 }
 

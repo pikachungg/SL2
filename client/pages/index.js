@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import Navbar from '../components/Navbar'
 import StudentFilter from '../components/StudentFilter';
+import PinnedStudents from '../components/PinnedStudents';
 
 export default function Home() {
   const router = useRouter()
@@ -66,9 +67,10 @@ export default function Home() {
             </div>
             <button onClick={logout}>Log out</button>
         </div>
+        
         <div className={styles.chart}>{/* this is for the optional digest chart area*/}</div>
         <div className={styles.alerts}>{/* this is for alert box */}</div>
-        <div className={styles.pinned}>{/* this is for pinned students box*/}</div>
+        <div className={styles.pinned}><PinnedStudents/></div>
       </div>
     </div>
   )

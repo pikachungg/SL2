@@ -88,8 +88,8 @@ export default function StudentFilter(){ //Add props to data.
                 </thead>
                 <tbody className={styles.tablebody}>
                     {
-                        filteredStudents.map( student => (
-                            <tr className={styles.tablerows} key={student.email}>
+                        studentList.map( student => (
+                            <tr className={styles.tablerows} key={student.uid}>
                                 <td className={styles.tablecolumnspin}><input type="checkbox"/></td>
                                 <td className={styles.tablecolumns}><b>{student.first_name} {student.last_name}</b></td>
                                 <td className={styles.tablecolumns}>{student.email.split('@')[0]}</td>
