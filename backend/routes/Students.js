@@ -2,6 +2,18 @@ const express = require('express');
 const router = express.Router();
 const client = require('../db/mongoconnection').client
 
+const getAllStudents = router.get('/students', (req, res) => {
+	client.connect( async (err) => {
+		try {
+			const collection = client.db("SL2").collection("Students");
+			console.log(collection.s.db)
+			res.status(200).send(collection)
+		} catch {
+			res.status(500).send(err)
+		}
+	})
+})
+
 const getStudentsByClassId = router.get('/students/classid/:classid' ,(req, res) => {
     let classid = req.params.classid
     console.log(classid)
@@ -36,4 +48,4 @@ const getStudentsByUID = router.get('/students/uid/:uid', (req, res) => {
     })
 })
 
-module.exports = { getStudentsByClassId, getStudentsByUID }
+module.exports = { getAllStudents, getStudentsByClassId, getStudentsByUID }

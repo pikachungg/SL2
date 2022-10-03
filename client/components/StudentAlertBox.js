@@ -6,12 +6,12 @@ import { IconContext } from "react-icons";
 
 export default function StudentAlertBox(){
 
-    let classid = "ISTE 140-1" //This should be dynamic, hardcoded rn for testing purposes
+    //let classid = "ISTE 140-1" //This should be dynamic, hardcoded rn for testing purposes
 
     const [studentList, setStudentList] = useState([])
 
     useEffect(() => {
-        const endpoint = `http://localhost:8000/students/classid/${classid}`
+        const endpoint = `http://localhost:8000/students`
         const options = {
             method: 'GET',
             headers: {
@@ -84,7 +84,7 @@ export default function StudentAlertBox(){
 							studentList.map( student => (
 								<tr className={styles.tablerows}>
 									<td>
-										<h4>{student.first_name} {student.last_name}: {student.courses[0]}</h4>
+										<h4>{student.first_name} {student.last_name}: {student.courses.toString()}</h4>
 										{calculateFailedLogins(student.logs)}
 									</td>
 								</tr>
