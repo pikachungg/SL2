@@ -48,20 +48,29 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Navbar/>
-      {/* <p>This is dashboard page</p> */}
-      <p>This is dashboard page</p>
-      {
-        //This is an exmaple here, feel free to delete 49 to 53
-      }
-      <h2>Welcome back {professor.first_name} {professor.last_name}</h2>
-      <h3>Your email is {professor.email}</h3>
-      {
-        courses.map( element => (
-          <h1>{element}</h1>
-        ))
-      }
-      <StudentFilter/>
-      <button onClick={logout}>Log out</button>
+      <div className={styles.dashboard}>
+        <div className={styles.sectionlist}>
+            <div className={styles.dashheader}>
+              <img src="./images/dashlogo.png" alt="Dashboard Logo" className={styles.dashLogo}/>
+              <h1>Your Dashboard</h1>
+            </div>
+            <div className={styles.sectionselect}>
+            <hr></hr>
+              
+            <h2>Logged in as {professor.first_name} {professor.last_name} with e-mail {professor.email} | Select Course Section to View Login Analytics:</h2>
+                {
+                  courses.map( element => (
+                    <div className={styles.courselist}>{element}</div>
+                  ))
+                }
+              <StudentFilter/>
+            </div>
+            <button onClick={logout}>Log out</button>
+        </div>
+        <div className={styles.chart}>{/* this is for the optional digest chart area*/}</div>
+        <div className={styles.alerts}>{/* this is for alert box */}</div>
+        <div className={styles.pinned}>{/* this is for pinned students box*/}</div>
+      </div>
     </div>
   )
 }
