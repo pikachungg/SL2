@@ -31,7 +31,6 @@
 .tablerow{
     display: flex;
     justify-content: space-between;
-    /* height: 50px; */
     padding-top: 25px;
     padding-bottom: 25px;
     padding-left: 5%;
