@@ -3,20 +3,25 @@
     font-size: 100%;
 }
 
+.container{
+    background-image: url('images/bg2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
 .bodytext{
     display: grid;
     grid-template-columns: 35% 65%;
     grid-template-areas: 
     'loginform introtext'
     'loginform introtext';
-    background-image: url('images/bg2.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
     padding-left: 50px;
     padding-right: 10%;
     padding-bottom: 50px;
     padding-top: 30px;
 }
+
 
 .loginform{
     grid-area: loginform;

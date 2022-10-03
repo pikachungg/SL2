@@ -40,7 +40,7 @@ export default function Login() {
             <title>SL2 | Login</title>
        </Head>
        <main>
-         <div>
+         <div className={styles.container}>
             <Navbar isLogin={true} helloworld={"hello world"}/>
             <div className={styles.bodytext}>
               <form onSubmit={handleSubmit} className={styles.loginform}>
