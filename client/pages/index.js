@@ -58,7 +58,7 @@ export default function Home() {
       <h3>Your email is {professor.email}</h3>
       {
         courses.map( element => (
-          <h1>{element}</h1>
+          <h1 key={element}>{element}</h1>
         ))
       }
       <StudentFilter/>
