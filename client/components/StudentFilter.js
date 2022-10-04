@@ -8,7 +8,7 @@ import Link from 'next/link';
 export default function StudentFilter(props){ //Add props to data.
 
     const [studentList, setStudentList] = useState([])
-
+    const [filteredStudents, setFilteredStudents] = useState([])
 
     useEffect(() => {   
         
@@ -101,7 +101,7 @@ export default function StudentFilter(props){ //Add props to data.
                 </thead>
                 <tbody className={styles.tablebody}>
                     {
-                        studentList.map( student => (
+                        filteredStudents.map( student => (
                             <tr className={styles.tablerows} key={student.uid}>
                                 <td className={styles.tablecolumnspin}><input type="checkbox"/></td>
                                 <td className={styles.tablecolumns + " " + styles.link}><Link href={`/student/${getStudentUID(student.email)}`}><b>{student.first_name} {student.last_name}</b></Link></td>

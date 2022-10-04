@@ -9,6 +9,7 @@ export default function PinnedStudents() {
 	const [update, setUpdate] = useState(true);
 
 	useEffect(() => {
+
 		if (localStorage.getItem("user_sl2")){
 			const endpoint = `http://localhost:8000/professors/uid/${localStorage.getItem(
 				"user_sl2",
@@ -27,7 +28,7 @@ export default function PinnedStudents() {
 					setPinnedStudents(pinnedStudents);
 				});
 		}
-	}, []);
+	}, [update]);
 
 	const removePin = (suid) => {
 		const endpoint = `http://localhost:8000/professors/pinned?puid=${localStorage.getItem(
