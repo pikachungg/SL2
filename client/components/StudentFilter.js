@@ -4,31 +4,39 @@ import { useEffect, useState } from "react"
 import { RiErrorWarningFill } from 'react-icons/ri'
 import { IconContext } from "react-icons";
 
-export default function StudentFilter(){ //Add props to data.
-
-    let classid = "ISTE 140-1" //This should be dynamic, hardcoded rn for testing purposes
+export default function StudentFilter(props){ //Add props to data.
 
     const [studentList, setStudentList] = useState([])
-    const [filteredStudents, setFilteredStudents] = useState([])
 
 
-    useEffect(() => {
-        const endpoint = `http://localhost:8000/students/classid/${classid}`
-        const options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+    useEffect(() => {   
+        
+        if (props.courseid){
+            const endpoint = `http://localhost:8000/students/classid/${props.courseid}`
+            const options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }
+    
+            fetch(endpoint, options)
+            .then( res => {
+                if (res == []) {
+                    return []
+                }
+                else{
+                    return res.json()
+                }
+            })
+            .then( data => {
+                setStudentList(data)
+            })
         }
 
-        fetch(endpoint, options)
-        .then( res => res.json())
-        .then( data => {
-            setStudentList(data)
-            setFilteredStudents(data)
-        })
+    }, [props.courseid])
 
-    }, [])
+    if (!props.courseid) return 'loading'
 
     const calculateFailedLogins = (logs) => {
         let count = 0

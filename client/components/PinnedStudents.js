@@ -9,23 +9,25 @@ export default function PinnedStudents() {
 	const [update, setUpdate] = useState(true);
 
 	useEffect(() => {
-		const endpoint = `http://localhost:8000/professors/uid/${localStorage.getItem(
-			"user_sl2",
-		)}`;
-		const options = {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		};
-
-		fetch(endpoint, options)
-			.then((res) => res.json())
-			.then((data) => {
-				let pinnedStudents = data.pinned;
-				setPinnedStudents(pinnedStudents);
-			});
-	}, [update]);
+		if (localStorage.getItem("user_sl2")){
+			const endpoint = `http://localhost:8000/professors/uid/${localStorage.getItem(
+				"user_sl2",
+			)}`;
+			const options = {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			};
+			
+			fetch(endpoint, options)
+				.then(res => res.json())
+				.then((data) => {
+					let pinnedStudents = data.pinned;
+					setPinnedStudents(pinnedStudents);
+				});
+		}
+	}, []);
 
 	const removePin = (suid) => {
 		const endpoint = `http://localhost:8000/professors/pinned?puid=${localStorage.getItem(
