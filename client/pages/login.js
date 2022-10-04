@@ -21,6 +21,7 @@ export default function Login() {
       },
       body: JSONdata
     }
+
     let res = await fetch(endpoint, options)
     if (res.status === 200){
       let user = await res.json()
