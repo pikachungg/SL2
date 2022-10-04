@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 
 import { RiErrorWarningFill } from 'react-icons/ri'
 import { IconContext } from "react-icons";
+import Link from 'next/link';
 
 export default function StudentFilter(props){ //Add props to data.
 
@@ -73,6 +74,10 @@ export default function StudentFilter(props){ //Add props to data.
         setFilteredStudents(newFilter)
     }
     
+    const getStudentUID = (student) => {
+        return student.split("@")[0]
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.insideContainer}>
@@ -99,7 +104,7 @@ export default function StudentFilter(props){ //Add props to data.
                         studentList.map( student => (
                             <tr className={styles.tablerows} key={student.uid}>
                                 <td className={styles.tablecolumnspin}><input type="checkbox"/></td>
-                                <td className={styles.tablecolumns}><b>{student.first_name} {student.last_name}</b></td>
+                                <td className={styles.tablecolumns + " " + styles.link}><Link href={`/student/${getStudentUID(student.email)}`}><b>{student.first_name} {student.last_name}</b></Link></td>
                                 <td className={styles.tablecolumns}>{student.email.split('@')[0]}</td>
                                 <td className={styles.tablecolumns}>{calculateFailedLogins(student.logs)}</td>
                                 <td className={styles.tablecolumns}>{getLastLogin(student.logs)}</td>

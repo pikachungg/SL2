@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-
+import Link from "next/link"
+import styles from "../styles/StudentPinCard.module.css"
 
 export default function StudentPinCard(props){
 
@@ -23,7 +24,7 @@ export default function StudentPinCard(props){
 
     return(
         <td>
-            {`${student.first_name} ${student.last_name}`}
+            <Link href={`/student/${props.uid}`}><b className={styles.link}>{`${student.first_name} ${student.last_name}`}</b></Link>
         </td>
     )
 }
