@@ -83,6 +83,15 @@
     background: #F9F4F0;
 }
 
+
+.link{
+    cursor: pointer;
+}
+
+.link:hover{
+    color: #CD794D;
+}
+
 .filterInput{
     width: 90%;
     padding: 5px;

@@ -4,7 +4,6 @@ const client = require('../db/mongoconnection').client
 
 const getStudentsByClassId = router.get('/students/classid/:classid' ,(req, res) => {
     let classid = req.params.classid
-    console.log(classid)
     client.connect( async (err) => {
         try{
             const collection = client.db("SL2").collection("Students");
