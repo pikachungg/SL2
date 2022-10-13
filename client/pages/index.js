@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
 import PinnedStudents from "../components/PinnedStudents";
 
+
 export default function Home() {
 	const router = useRouter();
 

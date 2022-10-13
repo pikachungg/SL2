@@ -37,6 +37,7 @@ export default function StudentFilter(props){ //Add props to data.
         }
 
     }, [props.courseid])
+    
 
     if (!props.courseid) return 'loading'
 

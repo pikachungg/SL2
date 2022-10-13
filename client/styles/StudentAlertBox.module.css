@@ -1,0 +1,38 @@
+
+
+.container{
+    margin-left: 20%; /*remove this later*/
+    width: 15%;
+    height: 40vh;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    border-bottom: 10px solid #E75C18;
+    box-shadow: 0 2.5px 2.5px 2.5px rgb(219, 219, 219);
+
+}
+
+.title{
+    display: flex;
+}
+
+.title h3{
+    margin-left: 3%;
+}
+
+.table{
+    margin-top: 5%;
+    width: 100%;
+    height: 35vh;
+    display: block;
+    overflow-y: scroll;
+    border-collapse: collapse;
+}
+
+.tablerows:nth-child(even) {
+    background: #F9F4F0;
+}
+
+.description p{
+    font-size: 0.75rem;
+}

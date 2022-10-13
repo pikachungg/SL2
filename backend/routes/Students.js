@@ -2,6 +2,18 @@ const express = require('express');
 const router = express.Router();
 const client = require('../db/mongoconnection').client
 
+const getAllStudents = router.get('/students', (req, res) => {
+	client.connect( async (err) => {
+		try {
+			const collection = client.db("SL2").collection("Students");
+			console.log(collection.s.db)
+			res.status(200).send(collection)
+		} catch {
+			res.status(500).send(err)
+		}
+	})
+})
+
 const getStudentsByClassId = router.get('/students/classid/:classid' ,(req, res) => {
     let classid = req.params.classid
     client.connect( async (err) => {
@@ -15,6 +27,20 @@ const getStudentsByClassId = router.get('/students/classid/:classid' ,(req, res)
         }
     })
 })
+
+const getStudentsByCourses = router.get('/students/courses/', (req, res) => {
+    let courses = req.query.course
+    client.connect ( async (err) => {
+        try{
+            const collection = client.db('SL2').collection('Students')
+            let students = await collection.find({"courses": {"$in": courses}}).toArray()
+            res.status(200).send(students)
+        }
+        catch{
+            res.status(500).send(err)
+        }
+    })
+}) 
 
 const getStudentsByUID = router.get('/students/uid/:uid', (req, res) => {
     let uid = req.params.uid
@@ -32,7 +58,7 @@ const getStudentsByUID = router.get('/students/uid/:uid', (req, res) => {
         catch{
             res.status(500).send(err)
         }
-    })
+    })  
 })
 
 const getStudentsById = router.get('/students/id/:id', (req, res) => {
@@ -51,4 +77,4 @@ const getStudentsById = router.get('/students/id/:id', (req, res) => {
     })
 })
 
-module.exports = { getStudentsByClassId, getStudentsByUID, getStudentsById }
+module.exports = { getAllStudents, getStudentsByClassId, getStudentsByUID, getStudentsByCourses }

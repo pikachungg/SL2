@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "(cd backend && npm install && npm start) & (cd client && npm install --save && npm run dev)",
-    "windows": "npm install && concurrently npm:watch:*",
+    "windows": "npm install -D concurrent ly && concurrently npm:watch:*",
     "watch:backend": "cd backend && npm install && npm start ",
     "watch:frontend": "cd client && npm install --save && npm run dev"
   },
@@ -25,6 +25,8 @@
     "react-icons": "^4.4.0"
   },
   "devDependencies": {
-    "concurrently": "^7.4.0"
+    "concurrent": "^0.3.2",
+    "concurrently": "^7.4.0",
+    "ly": "^1.0.0"
   }
 }
