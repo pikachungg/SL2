@@ -77,4 +77,4 @@ const getStudentsById = router.get('/students/id/:id', (req, res) => {
     })
 })
 
-module.exports = { getAllStudents, getStudentsByClassId, getStudentsByUID, getStudentsByCourses }
+module.exports = { getAllStudents, getStudentsByClassId, getStudentsByUID, getStudentsById, getStudentsByCourses }

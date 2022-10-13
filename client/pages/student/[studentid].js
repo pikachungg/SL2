@@ -3,6 +3,8 @@ import PinnedStudents from '../../components/PinnedStudents';
 import { useRouter } from 'next/router'
 import { useEffect, useState } from "react";
 import Styles from "../../styles/Students.module.css"
+import StudentLoginHistory from "../../components/StudentLoginHistory"
+import StudentAlertBox from "../../components/StudentAlertBox"
 
 
 export default function StudentPage(){
@@ -35,7 +37,9 @@ export default function StudentPage(){
         <div>
             <Navbar/>
             <p>Analytics for {student.first_name} {student.last_name} - {student.email}</p>
+            <StudentLoginHistory studentid={studentid}/>
             <PinnedStudents/>
+            <StudentAlertBox/>
         </div>
     )
 }

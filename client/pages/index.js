@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
 import PinnedStudents from "../components/PinnedStudents";
+import StudentAlertBox from '../components/StudentAlertBox';
 
 
 export default function Home() {
@@ -79,6 +80,7 @@ export default function Home() {
 				</div>
 				<div className={styles.alerts}>
 					{/* this is for alert box */}
+          <StudentAlertBox/>
 				</div>
 				<div className={styles.pinned}>
 					<PinnedStudents />

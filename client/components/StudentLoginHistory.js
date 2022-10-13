@@ -4,12 +4,33 @@ import { useEffect, useState } from "react"
 import { RiErrorWarningFill } from 'react-icons/ri'
 import { IconContext } from "react-icons";
 
-export default function StudentLoginHistory({student}){
+export default function StudentLoginHistory(props){
+    const [student, setStudent] = useState({})
+    const [sortedLogs, setSortedLogs] = useState([])
 
-	let sortedLogs = student.logs.sort(function(a, b) {
-		return new Date(b.datetime) - new Date(a.datetime)
-	})
-    
+    useEffect(() => {
+        const endpoint = `http://localhost:8000/students/id/${props.studentid}`;
+        const options = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+	
+        fetch(endpoint, options)
+            .then( res => res.json())
+            .then( data => {
+                setStudent(data)
+                let sortinglogs = data.logs.sort(function(a, b) {
+                    return new Date(b.datetime) - new Date(a.datetime)
+                })
+                setSortedLogs(sortinglogs)
+            });
+
+    }, [props.studentid])
+
+    console.log(sortedLogs)
+        
     return (
         <div className={styles.container}>
             <div className={styles.insideContainer}>
@@ -27,12 +48,13 @@ export default function StudentLoginHistory({student}){
                 </thead>
                 <tbody className={styles.tablebody}>
                     {
-                        sortedLogs.map( log => (
-                            <tr className={styles.tablerows}>
-                                <td className={styles.tablecolumns}>{log.datetime.toDateString()}</td>
-                                <td className={styles.tablecolumns}>{log.datetime.toLocaleTimeString()}</td>
+                        sortedLogs.length > 0 ? 
+                        sortedLogs.map( (log, index) => (
+                            <tr className={styles.tablerows} key={index}>
+                                <td className={styles.tablecolumns}>{new Date(log.datetime).toDateString()}</td>
+                                <td className={styles.tablecolumns}>{new Date(log.datetime).toLocaleTimeString()}</td>
                             </tr>
-                        ))
+                        )) : <tr><td>This user has no logs</td></tr>
                     }
                 </tbody>
             </table>
