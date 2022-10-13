@@ -2,6 +2,7 @@ import Navbar from "../../components/Navbar";
 import PinnedStudents from '../../components/PinnedStudents';
 import { useRouter } from 'next/router'
 import { useEffect, useState } from "react";
+import Styles from "../../styles/Students.module.css"
 
 
 export default function StudentPage(){
