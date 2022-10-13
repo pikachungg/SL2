@@ -30,7 +30,6 @@ export default function StudentAlertBox(props) {
 			});
 	}, [props.courses]);
 
-
 	const makeQueryString = (courses) => {
 		let queryString = '?'
 		for (let i = 0; i < courses.length; i++){
@@ -44,22 +43,21 @@ export default function StudentAlertBox(props) {
 		return queryString
 	}
 
-	const calculateFailedLogins = (logs) => {
-		//console.log(logs)
-		let count = 0;
+	const OLDcalculateFailedLogins = (logs) => {
+		let count = 0
 		let sortedLogs = logs.sort(function (a, b) {
-			return new Date(b.datetime) - new Date(a.datetime);
+			return new Date(b.datetime) - new Date(a.datetime)
 		});
-
+		
 		let now = new Date(); // current date
-		let weekRange = now.setDate(now.getDate() - 7); // 7 day range
+		let weekRange = now.setDate(now.getDate() - 7) // 7 day range
 
 		for (let i = 0; i < sortedLogs.length; i++) {
 			if (new Date(sortedLogs[i].datetime) < weekRange) {
 				break;
 			}
 
-			if (logs[i].result.toLowerCase() == "failure") {
+			if (sortedLogs[i].result.toLowerCase() === "failure") {
 				count += 1;
 			}
 		}
@@ -79,7 +77,48 @@ export default function StudentAlertBox(props) {
 				</p>
 			</div>
 		);
-	};
+	}
+
+	const calculateFailedLogins = (students) => {
+
+		let result = []
+
+		for(let student of students) {
+			let count = 0
+			let sortedLogs = student.logs.sort(function (a, b) {
+				return new Date(b.datetime) - new Date(a.datetime)
+			});
+			
+			let now = new Date(); // current date
+			let weekRange = now.setDate(now.getDate() - 7) // 7 day range
+
+			for (let i = 0; i < sortedLogs.length; i++) {
+				if (new Date(sortedLogs[i].datetime) < weekRange) {
+					break;
+				}
+
+				if (sortedLogs[i].result.toLowerCase() === "failure") {
+					count += 1;
+				}
+			}
+
+			let mostRecent = new Date(sortedLogs[0].datetime); // most recent failure
+			let logins = count == 1 ? "login" : "logins";
+
+			result.push({
+				first_name: student.first_name,
+				last_name: student.last_name,
+				courses: student.courses,
+				logins: logins,
+				mostRecent: mostRecent,
+				count: count
+			})
+		}
+
+		return result.sort(function (a, b) {
+			return b.count - a.count
+		})
+	}
 
 	return (
 		<div className={styles.container}>
@@ -94,15 +133,26 @@ export default function StudentAlertBox(props) {
 				</div>
 				<table className={styles.table}>
 					<tbody>
-						{ students !== undefined ?
-							students.map( student => (
+						{
+							students !== undefined ?
+							calculateFailedLogins(students).map( student => (
 								<tr className={styles.tablerows}>
 									<td>
 										<h4>{student.first_name} {student.last_name}: {student.courses.toString()}</h4>
-										{calculateFailedLogins(student.logs)}
+										<div className={styles.description}>
+											<p>
+												{student.count} failed {student.logins} in the past week
+											</p>
+											<p>
+												Last Failed Login: {student.mostRecent.toDateString()}
+												{student.mostRecent.toLocaleTimeString("en-US")}
+											</p>
+										</div>
 									</td>
 								</tr>
-							)) : <tr><td><p>Loading</p></td></tr>
+
+							))
+							: <tr><td><p>Loading</p></td></tr>
 						}
 					</tbody>
 				</table>
