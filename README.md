@@ -29,5 +29,5 @@ This folder contains the frontend code.
 1. Clone this repo `git clone https://github.com/Dragoffs/SL2.git`
 2. Move into the directory SL2: `cd SL2`
 3. Run `npm install`
-4. Run npm run windows
+4. Run `npm run windows`
 5. Open `localhost:3000` and you should be able to see the app.
