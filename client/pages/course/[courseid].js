@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import StudentFilter from "../../components/StudentFilter";
 import PinnedStudents from '../../components/PinnedStudents';
 import Navbar from "../../components/Navbar";
+import StudentAlertBox from '../../components/StudentAlertBox';
 import Styles from "../../styles/Courses.module.css"
 import { useEffect } from 'react';
 
@@ -24,6 +25,7 @@ export default function CoursePage(){
             {/* Graph hoes here */}
             <StudentFilter courseid={courseid}/>
             <PinnedStudents/>
+            <StudentAlertBox/>
         </div>
     )
 }
