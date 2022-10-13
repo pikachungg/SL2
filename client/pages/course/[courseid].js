@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import StudentFilter from "../../components/StudentFilter";
 import PinnedStudents from '../../components/PinnedStudents';
 import Navbar from "../../components/Navbar";
+import Styles from "../../styles/Courses.module.css"
 import { useEffect } from 'react';
 
 export default function CoursePage(){
