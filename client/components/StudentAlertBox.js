@@ -144,7 +144,7 @@ export default function StudentAlertBox(props) {
 												{student.count} failed {student.logins} in the past week
 											</p>
 											<p>
-												Last Failed Login: {student.mostRecent.toDateString()}
+												Last Failed Login: {student.mostRecent.toDateString()}, {" "}
 												{student.mostRecent.toLocaleTimeString("en-US")}
 											</p>
 										</div>
