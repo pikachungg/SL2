@@ -25,9 +25,13 @@ app.get('/students/courses/', students.getStudentsByCourses)
 
 app.get('/professors/uid/:uid', professors.getProfessorById)
 
+app.get('/professors/courses/:uid', professors.getCoursesByProfessor)
+
 app.get('/professors/notifications/:professorid', professors.getRecentStudentsNotifications)
 
 app.get('/professors/pinned/:uid', professors.getPinnedStudents)
+
+app.get('/students/id/:id', students.getStudentsById)
 
 app.patch('/professors/pinned', professors.addPinnedStudent)
 

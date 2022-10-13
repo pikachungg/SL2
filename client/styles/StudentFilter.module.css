@@ -1,17 +1,18 @@
 
 
 .container{
-    margin-left: 20%; /*remove this later*/
-    width: 50vw;
-    height: 40vh;
+    margin: 20px; 
+    padding: 20px;
+    width: 100%;
+    height: 50vh;
     background-color: white;
     border-radius: 10px;
-    padding: 20px;
     box-shadow: 0 2.5px 2.5px 2.5px rgb(219, 219, 219);
 }
 
 .insideContainer{
     display: flex;
+    width: 100%;
     justify-content: space-between;
 }
 
@@ -20,11 +21,24 @@
 }
 
 .insideContainerRight{
-    
+    width: 30%;
+    height: 100%;
+}
+
+.insideContainerLeft p{
+    font-size: 14px;
+    padding: 5px;
+    padding-left: 0px;
+}
+.insideContainerLeft h3{
+    font-size: 18px;
+    padding: 5px;
+    padding-left: 0px;
+    padding-top: 0px;
 }
 
 .table{
-    margin-top: 3%;
+    margin-top: 5px;
     width: 100%;
     height: 80%;
     display: block;
@@ -39,10 +53,11 @@
     padding: 20px 0 20px 0;
     width: 2%;
     text-align: center;
+    font-size: 14px;
 }
 
 .tableheader{
-    color: #CD794D;
+    color: #E75C18;
     top: 0;
     background-color: white;
     position: sticky;
@@ -54,15 +69,39 @@
     width: 10%;
     padding: 20px 0 20px 0;
     text-align: left;
+    font-size: 14px;
 }
 .tablecolumns{
-    padding: 20px 0 20px 0;
+    padding: 15px 0 15px 0;
 }
 
 .tablecolumnspin{
     text-align: center;
 }
 
-.tablerows:nth-child(even) {
+.tablerows:nth-child(odd) {
     background: #F9F4F0;
+}
+
+
+.link{
+    cursor: pointer;
+}
+
+.link:hover{
+    color: #CD794D;
+}
+
+.filterInput{
+    width: 90%;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 40px;
+    border-width: 2.5px;
+    border-style: solid;
+    border-color: #CD794D;
+    font-size: 1rem;
+}
+.tablerows{
+    font-size: 14px;
 }

@@ -1,32 +1,58 @@
 .navbar{
     display: flex;
+    height: 50px;
+    background-color: white;
+    justify-content: space-between;
+    cursor: pointer;
 }
 
 .imagediv{
     margin-left: 0%;
 }
 
+.imagediv img{
+    outline: none;
+    width: 100%;
+    border: none;
+}
+
 .ritLogo{
-    width: 6em;
-    height: 3.8em;
-    margin-top: 1%;
-    margin-bottom: .5%;
-    margin-left: 3%;
-    margin-right: 2%;
+    width: auto;
+    height: contain;
+    margin: none;
+    padding: 10px;
+    padding-left: 30px;
+}
+
+.left{
+    display: flex;
+    margin-left: 5%;
+}
+
+.right{
+    display: flex;
+    width: 20%;
+    margin-right: 5%;
 }
 
 .verticalLine{
     background-color: black;
-    width: .2em;
-    height: 2.6em;
-    margin-top: 1.6%;
-    margin-bottom: 1.3%;
+    width: .5px;
+    height: 30px;
+    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.title{
-    margin-top: 1.8%;
-    margin-left: 2%;
-    font: 24px Helvetica Neue, bold;
+.navbar h1{
+    font: 16px Mulish;
+    padding: 10px;
+    padding-top:15px;
+    font-weight: bold;
+}
+
+.navbar #line{
+    font-size: 24px;
 }
 
 .buttomline{
@@ -35,22 +61,20 @@
     background-color:#F76902;
 }
 
-.logOut{
+.navbar button{
     background-color: white;
     color: black;
     border: 2px solid #F76902;
-    text-align: center;
     text-decoration: none;
+    padding: 0px 20px;
+    border-radius: 50px;
+    vertical-align: middle;
+    margin:5px;
     margin-left: 62%;
-    padding: 12px 28px;
-    border-radius: 12px;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    display: flex;
     transition-duration: 0.4s;
 }
 
-.logOut:hover {
+.navbar button:hover {
     background-color: #F76902;
     color: white;
 }

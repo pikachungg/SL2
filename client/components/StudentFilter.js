@@ -3,29 +3,43 @@ import { useEffect, useState } from "react"
 
 import { RiErrorWarningFill } from 'react-icons/ri'
 import { IconContext } from "react-icons";
+import Link from 'next/link';
 
-export default function StudentFilter(){
-
-    let classid = "ISTE 140-1" //This should be dynamic, hardcoded rn for testing purposes
+export default function StudentFilter(props){ //Add props to data.
 
     const [studentList, setStudentList] = useState([])
+    const [filteredStudents, setFilteredStudents] = useState([])
 
-    useEffect(() => {
-        const endpoint = `http://localhost:8000/students/classid/${classid}`
-        const options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+    useEffect(() => {   
+        
+        if (props.courseid){
+            const endpoint = `http://localhost:8000/students/classid/${props.courseid}`
+            const options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }
+    
+            fetch(endpoint, options)
+            .then( res => {
+                if (res == []) {
+                    return []
+                }
+                else{
+                    return res.json()
+                }
+            })
+            .then( data => {
+                setStudentList(data)
+                setFilteredStudents(data)
+            })
         }
 
-        fetch(endpoint, options)
-        .then( res => res.json())
-        .then( data => {
-            setStudentList(data)
-        })
+    }, [props.courseid])
+    
 
-    }, [])
+    if (!props.courseid) return 'loading'
 
     const calculateFailedLogins = (logs) => {
         let count = 0
@@ -37,9 +51,35 @@ export default function StudentFilter(){
     }
 
     const getLastLogin = (logs) => {
+        let successes = []
+        for (let i = 0; i < logs.length; i++){
+            if (logs[i].result == "Failure")
+            successes.push(logs[i])
+        }
+        if (successes.length > 0){
+            //Change this for different datetime format
+            let date = new Date(successes.slice(-1)[0].datetime)
+            return <p>{date.toString()}</p>
+        }
+        else{
+            return <p>No Failed Logins</p>
+        }
+    }
 
+    const filtering = (e) => {
+        e.preventDefault()
+        let filterValue = e.target.value
+        const newFilter = studentList.filter( (employee) => {
+            //Change this to change filter
+            return employee.email.includes(filterValue)
+        })
+        setFilteredStudents(newFilter)
     }
     
+    const getStudentUID = (student) => {
+        return student.split("@")[0]
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.insideContainer}>
@@ -48,7 +88,7 @@ export default function StudentFilter(){
                     <p>Select a student to view their login analytics</p>
                 </div>
                 <div className={styles.insideContainerRight}>
-                    <input></input>
+                    <input onChange={filtering} placeholder="Filter Student..." className={styles.filterInput}></input>
                 </div>
             </div>
             <table className={styles.table}>
@@ -63,13 +103,13 @@ export default function StudentFilter(){
                 </thead>
                 <tbody className={styles.tablebody}>
                     {
-                        studentList.map( student => (
-                            <tr className={styles.tablerows}>
+                        filteredStudents.map( student => (
+                            <tr className={styles.tablerows} key={student.uid}>
                                 <td className={styles.tablecolumnspin}><input type="checkbox"/></td>
-                                <td className={styles.tablecolumns}><b>{student.first_name} {student.last_name}</b></td>
+                                <td className={styles.tablecolumns + " " + styles.link}><Link href={`/student/${getStudentUID(student.email)}`}><b>{student.first_name} {student.last_name}</b></Link></td>
                                 <td className={styles.tablecolumns}>{student.email.split('@')[0]}</td>
                                 <td className={styles.tablecolumns}>{calculateFailedLogins(student.logs)}</td>
-                                <td className={styles.tablecolumns}></td>
+                                <td className={styles.tablecolumns}>{getLastLogin(student.logs)}</td>
                             </tr>
                         ))
                     }

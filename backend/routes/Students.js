@@ -16,7 +16,6 @@ const getAllStudents = router.get('/students', (req, res) => {
 
 const getStudentsByClassId = router.get('/students/classid/:classid' ,(req, res) => {
     let classid = req.params.classid
-    console.log(classid)
     client.connect( async (err) => {
         try{
             const collection = client.db("SL2").collection("Students");
@@ -60,6 +59,22 @@ const getStudentsByUID = router.get('/students/uid/:uid', (req, res) => {
             res.status(500).send(err)
         }
     })  
+})
+
+const getStudentsById = router.get('/students/id/:id', (req, res) => {
+    let email = `${req.params.id}@rit.edu`
+    client.connect( async (err) => {
+        try{
+            const collection = client.db("SL2").collection("Students");
+            let student = await collection.findOne({email: email})
+            if (student){
+                res.status(200).send(student)
+            }
+        }
+        catch{
+            res.status(500).send(err)
+        }
+    })
 })
 
 module.exports = { getAllStudents, getStudentsByClassId, getStudentsByUID, getStudentsByCourses }
