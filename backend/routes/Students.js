@@ -29,14 +29,12 @@ const getStudentsByClassId = router.get('/students/classid/:classid' ,(req, res)
     })
 })
 
-const getStudentsByCourses = router.get('/students/courses/:courseid', (req, res) => {
-    let courseid = req.params.courseid.split(',');
-    console.log(courseid)
+const getStudentsByCourses = router.get('/students/courses/', (req, res) => {
+    let courses = req.query.course
     client.connect ( async (err) => {
         try{
             const collection = client.db('SL2').collection('Students')
-            let students = await collection.find({"courses": {"$in": courseid}}).toArray()
-            console.log(students.length)
+            let students = await collection.find({"courses": {"$in": courses}}).toArray()
             res.status(200).send(students)
         }
         catch{

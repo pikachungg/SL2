@@ -22,7 +22,6 @@ export default function StudentFilter(){
         fetch(endpoint, options)
         .then( res => res.json())
         .then( data => {
-            console.log(data)
             setStudentList(data)
         })
 
