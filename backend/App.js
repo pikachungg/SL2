@@ -21,6 +21,8 @@ app.get('/students/uid/:uid', students.getStudentsByUID)
 // all students
 app.get('/students', students.getAllStudents)
 
+app.get('/students/courses/:courseid', students.getStudentsByCourses)
+
 app.get('/professors/uid/:uid', professors.getProfessorById)
 
 app.get('/professors/notifications/:professorid', professors.getRecentStudentsNotifications)

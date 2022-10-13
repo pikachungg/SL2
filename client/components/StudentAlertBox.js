@@ -4,33 +4,35 @@ import { useEffect, useState } from "react"
 import { RiErrorWarningFill } from 'react-icons/ri'
 import { IconContext } from "react-icons";
 
-export default function StudentAlertBox(students){
-    //const [studentList, setStudentList] = useState([])
+export default function StudentAlertBox(props){
+    const [students, setStudents] = useState([])
 
-	//const classid = "ISTE 140-1"
+	useEffect( () => {
+		const options = {
+			method: 'GET',
+			headers: {
+			  'Content-Type': 'application/json'
+			},
+		}
 
-//	useEffect(() => {
-//		const options = {
-//		    method: 'GET',
-//		    headers: {
-//		        'Content-Type': 'application/json'
-//		    },
-//		}
-//
-//
-//		console.log(courses)
-//
-//		for(let classid of courses.courses) {
-//			let endpoint = `http://localhost:8000/students/classid/${classid}`
-//			fetch(endpoint, options)
-//			.then( res => res.json())
-//			.then( data => {
-//				console.log(data)
-//				setStudentList(studentList => [...studentList, ...data])
-//			})
-//		}
-//
-//	}, [])
+		for(let i = 0; i < props.courses.length; i++) {
+			fetch(`http://localhost:8000/students/classid/${props.courses[i]}`, options)
+			.then(res => res.json())
+			.then(data => {
+				console.log(props.courses[i])
+				if (students.length > 0){
+					let mergedArray = students.concat(data)
+					setStudents(mergedArray)
+				}
+				else{
+					setStudents(data)
+				}
+			})
+		  }
+		  
+	  }, [])
+
+	  console.log(students)
 
 	const calculateFailedLogins = (logs) => {
 		//console.log(logs)
@@ -63,10 +65,6 @@ export default function StudentAlertBox(students){
 			</div>
 		)
 	}
-
-		const getLastLogin = (logs) => {
-
-    }
     
     return (
         <div className={styles.container}>
@@ -77,7 +75,7 @@ export default function StudentAlertBox(students){
                 </div>
             	<table className={styles.table}>
 					<tbody>
-						{
+						{/* {
 							students.students.map( student => (
 								<tr className={styles.tablerows}>
 									<td>
@@ -86,7 +84,7 @@ export default function StudentAlertBox(students){
 									</td>
 								</tr>
 							))
-						}
+						} */}
 					</tbody>
 				</table>
             </div>

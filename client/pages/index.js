@@ -12,8 +12,6 @@ export default function Home() {
   const [professor, setProfessor] = useState({})
   //This is the professor courses. Is an array, that contains class id as strings.
   const [courses, setCourses] = useState([])
-  // A professor's students { courseName: [students...] ... }
-  const [students, setStudents] = useState([])
 
 	const options = {
 	  method: 'GET',
@@ -41,34 +39,6 @@ export default function Home() {
 
   }, [])
 
-  useEffect( () => {
-	for(let i = 0; i < courses.length; i++) {
-		console.log(courses[i])
-		fetch(`http://localhost:8000/students/classid/${courses[i]}`, options)
-		.then(res => res.json())
-		.then(data => {
-			console.log(data)
-			setStudents(students => [...students, ...data])
-			//setStudents([data].concat(students))
-			//setStudents(data.forEach(s => students.add(s)))
-		})
-  	}
-  }, [courses])
-
-  console.log(students)
-
-//  const getStudents = async (courses) => {
-//	for(let i = 0; i < courses.length; i++) {
-//		await
-//			fetch(`http://localhost:8000/students/classid/${courses[i]}`, options)
-//			.then(res => res.json())
-//			.then(data => {
-//				console.log(data)
-//				setStudents(data => [...students, ...data])
-//			})
-//  	}
-//  }
-//	//getStudents(courses)
 
   const logout = (e) => {
     e.preventDefault()
@@ -92,7 +62,7 @@ export default function Home() {
         ))
       }
       <StudentFilter/>
-	  <StudentAlertBox students={students}/>
+	    <StudentAlertBox courses={courses}/>
       <button onClick={logout}>Log out</button>
     </div>
   )

@@ -29,6 +29,22 @@ const getStudentsByClassId = router.get('/students/classid/:classid' ,(req, res)
     })
 })
 
+const getStudentsByCourses = router.get('/students/courses/:courseid', (req, res) => {
+    let courseid = req.params.courseid.split(',');
+    console.log(courseid)
+    client.connect ( async (err) => {
+        try{
+            const collection = client.db('SL2').collection('Students')
+            let students = await collection.find({"courses": {"$in": courseid}}).toArray()
+            console.log(students.length)
+            res.status(200).send(students)
+        }
+        catch{
+            res.status(500).send(err)
+        }
+    })
+}) 
+
 const getStudentsByUID = router.get('/students/uid/:uid', (req, res) => {
     let uid = req.params.uid
     client.connect (async (err) => {
@@ -45,7 +61,7 @@ const getStudentsByUID = router.get('/students/uid/:uid', (req, res) => {
         catch{
             res.status(500).send(err)
         }
-    })
+    })  
 })
 
-module.exports = { getAllStudents, getStudentsByClassId, getStudentsByUID }
+module.exports = { getAllStudents, getStudentsByClassId, getStudentsByUID, getStudentsByCourses }
