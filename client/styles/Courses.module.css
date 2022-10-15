@@ -1,7 +1,7 @@
 .courseheader{
     display: flex;
     padding: 10px;
-    padding-left: 20px;
+    padding-left: 10px;
     padding-bottom: 0;
 }
 .courseheader h1{
@@ -42,6 +42,17 @@
     border-right: 0px;
     margin: 10px;
     margin-right: 50px;
+}
+
+.backbutton{
+    color: white;
+    background-color:#FF6C24;
+    padding: 10px 40px;
+    margin-right: 10px;
+    font-size: 14px;
+    border-radius: 50px;
+    border: none;
+    margin-left: none;
 }
 
 .studenttable{

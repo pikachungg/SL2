@@ -39,6 +39,7 @@ export default function StudentPage(){
                 <div className={styles.courseanalytics}>
                     <div className={styles.chart}>
                         <div className={styles.studentheader}>
+						    <button className={styles.backbutton}>Back to Course Analytics</button>
                             <img
                                 src="../images/courselogo.png"
                                 alt="Course Analytics Logo"

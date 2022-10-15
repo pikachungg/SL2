@@ -25,6 +25,7 @@ export default function CoursePage(){
 			<div className={styles.courseanalytics}>
 				<div className={styles.chart}>
 					<div className={styles.courseheader}>
+						<button className={styles.backbutton}>Back to Dashboard</button>
 						<img
 							src="../images/courselogo.png"
 							alt="Course Analytics Logo"

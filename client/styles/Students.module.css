@@ -1,8 +1,19 @@
 .studentheader{
     display: flex;
     padding: 10px;
-    padding-left: 20px;
+    padding-left: 10px;
     padding-bottom: 0;
+}
+
+.backbutton{
+    color: white;
+    background-color:#FF6C24;
+    padding: 10px 40px;
+    margin-right: 10px;
+    font-size: 14px;
+    border-radius: 50px;
+    border: none;
+    margin-left: none;
 }
 .studentheader h1{
     font-size: 18px;
