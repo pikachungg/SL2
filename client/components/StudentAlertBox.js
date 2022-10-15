@@ -102,13 +102,13 @@ export default function StudentAlertBox() {
 		// interpolate into return string / tag
 		return (
 			<div className={styles.description}>
-				<p>
+				<h3>
 					{count} failed {logins} in the past week
-				</p>
-				<p>
+				</h3>
+				<h4>
 					Last Failed Login: {mostRecent.toDateString()},{" "}
 					{mostRecent.toLocaleTimeString("en-US")}
-				</p>
+				</h4>
 			</div>
 		);
 	}
@@ -162,7 +162,7 @@ export default function StudentAlertBox() {
 			<div>
 				<div className={styles.title}>
 					<IconContext.Provider
-						value={{ color: "orange", size: "25px" }}
+						value={{ color: "#FF6F00", size: "20px" }}
 					>
 						<RiErrorWarningFill />
 					</IconContext.Provider>
@@ -175,15 +175,16 @@ export default function StudentAlertBox() {
 							failedLogins.map( (student, index) => (
 								<tr className={styles.tablerows} key={index}>
 									<td>
-										<h4>{student.first_name} {student.last_name}: {student.courses.toString()}</h4>
+										<h2>{student.first_name} {student.last_name}: {student.courses.toString()}</h2>
 										<div className={styles.description}>
-											<p>
+											<h3>
 												{student.count} failed {student.logins} in the past week
-											</p>
-											<p>
-												Last Failed Login: {student.mostRecent.toDateString()}, {" "}
+											</h3>
+											<h4>
+												Last Failed Login Date and Time:<br></br> {student.mostRecent.toDateString()}, {" "}
+												
 												{student.mostRecent.toLocaleTimeString("en-US")}
-											</p>
+											</h4>
 										</div>
 									</td>
 								</tr>
