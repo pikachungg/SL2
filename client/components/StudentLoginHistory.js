@@ -32,14 +32,14 @@ export default function StudentLoginHistory(props){
     console.log(sortedLogs)
         
     return (
-        <div className={styles.container}>
+        <div className={styles.containerhistory}>
             <div className={styles.insideContainer}>
                 <div className={styles.insideContainerLeft}>
-                    <h3>LOGIN HISTORY</h3>
-					<h5>{student.first_name} {student.last_name} ({student.username})</h5>
+                    <h3>LOGIN HISTORY: </h3>
+					{/*<h5>{student.first_name} {student.last_name} ({student.username})</h5> */}
                 </div>
             </div>
-            <table className={styles.table}>
+            <table className={styles.tablehistory}>
                 <thead className={styles.tableheader}>
                     <tr>
                         <th className={styles.tableheadercolumn}>FAILED LOGIN ATTEMPT DATE</th>

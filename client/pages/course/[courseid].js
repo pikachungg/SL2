@@ -30,7 +30,7 @@ export default function CoursePage(){
 							alt="Course Analytics Logo"
 							className={styles.courseLogo}
 						/>
-						<h1>Selected Course Analytics for: {courseid}</h1>
+						<h1>Selected Course Analytics: {courseid}</h1>
 					</div>
                     <hr></hr>
 				</div>

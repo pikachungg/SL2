@@ -98,7 +98,7 @@ export default function StudentFilter(props){ //Add props to data.
                         <th className={styles.tableheadercolumn}>FULL NAME</th>
                         <th className={styles.tableheadercolumn}>RIT USERNAME</th>
                         <th className={styles.tableheadercolumn}># FAILED LOGIN</th>
-                        <th className={styles.tableheadercolumn}>LAST FAILED LOGIN DATE+TIME</th>
+                        <th className={styles.tableheadercolumn}>LAST FAILED LOGIN DATE + TIME</th>
                     </tr>
                 </thead>
                 <tbody className={styles.tablebody}>
