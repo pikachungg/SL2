@@ -88,7 +88,7 @@ export default function StudentFilter(props){ //Add props to data.
                     <p>Select a student to view their login analytics</p>
                 </div>
                 <div className={styles.insideContainerRight}>
-                    <input onChange={filtering} placeholder="Filter Student..." className={styles.filterInput}></input>
+                    <input onChange={filtering} placeholder="| Filter Students by RIT Username..." className={styles.filterInput}></input>
                 </div>
             </div>
             <table className={styles.table}>
@@ -98,7 +98,7 @@ export default function StudentFilter(props){ //Add props to data.
                         <th className={styles.tableheadercolumn}>FULL NAME</th>
                         <th className={styles.tableheadercolumn}>RIT USERNAME</th>
                         <th className={styles.tableheadercolumn}># FAILED LOGIN</th>
-                        <th className={styles.tableheadercolumn}>LAST FAILED LOGIN</th>
+                        <th className={styles.tableheadercolumn}>LAST FAILED LOGIN DATE+TIME</th>
                     </tr>
                 </thead>
                 <tbody className={styles.tablebody}>

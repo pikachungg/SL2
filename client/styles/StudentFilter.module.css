@@ -3,7 +3,7 @@
 .container{
     margin: 20px; 
     padding: 20px;
-    width: 100%;
+    width: auto;
     height: 50vh;
     background-color: white;
     border-radius: 10px;
@@ -38,7 +38,7 @@
 }
 
 .table{
-    margin-top: 5px;
+    margin-top: 0px;
     width: 100%;
     height: 80%;
     display: block;
@@ -94,13 +94,12 @@
 
 .filterInput{
     width: 90%;
-    padding: 5px;
+    padding: 10px;
+    margin-right: 0px;
     box-sizing: border-box;
-    border-radius: 40px;
-    border-width: 2.5px;
-    border-style: solid;
-    border-color: #CD794D;
-    font-size: 1rem;
+    border-radius: 50px;
+    border: 2px solid #E75C18;
+    font-size: 14px;
 }
 .tablerows{
     font-size: 14px;

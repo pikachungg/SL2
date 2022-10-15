@@ -159,11 +159,10 @@ export default function StudentAlertBox() {
 
 	return (
 		<div className={styles.container}>
-			<div>
+			<div className={styles.insidecontainer}>
 				<div className={styles.title}>
 					<IconContext.Provider
-						value={{ color: "#FF6F00", size: "20px" }}
-					>
+						value={{ color: "#FF6F00", size: "20px" }}>
 						<RiErrorWarningFill />
 					</IconContext.Provider>
 					<h3>STUDENT ALERTS</h3>
@@ -181,7 +180,7 @@ export default function StudentAlertBox() {
 												{student.count} failed {student.logins} in the past week
 											</h3>
 											<h4>
-												Last Failed Login Date and Time:<br></br> {student.mostRecent.toDateString()}, {" "}
+												Last Failed Login Date + Time: <br></br>{student.mostRecent.toDateString()}, {" "}
 												
 												{student.mostRecent.toLocaleTimeString("en-US")}
 											</h4>

@@ -1,0 +1,59 @@
+.courseheader{
+    display: flex;
+    padding: 10px;
+    padding-left: 20px;
+    padding-bottom: 0;
+}
+.courseheader h1{
+    font-size: 18px;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.courseheader h3{
+    font-size: 14px;
+}
+
+.courseheader img{
+    outline: none;
+    border: none;
+}
+
+.courseLogo{
+    width: auto;
+    height: 40px;
+    margin: none;
+}
+
+.courseanalytics{
+    padding: 20px;
+    padding-top: 0;
+    display: grid;
+    grid-template-columns: 75% 25%;
+    grid-template-areas: 
+    'chart alerts'
+    'studenttable pinned';
+    margin-right: 20px;
+}
+.chart hr{
+    border-top: 0.5px solid rgb(168, 168, 168);
+    border-bottom: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    margin: 10px;
+    margin-right: 50px;
+}
+
+.studenttable{
+    grid-area: studenttable;
+}
+.alert{
+    grid-area: alerts;
+}
+.chart{
+    grid-area: chart;
+    height: 200px;
+}
+.pinned{
+    grid-area: pinned;
+}
