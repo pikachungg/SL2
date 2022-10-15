@@ -41,6 +41,7 @@
     display: block;
     overflow-y: scroll;
     border-collapse: collapse;
+    overflow-x: hidden;
 }
 
 .tablerows:nth-child(odd) {
@@ -49,6 +50,11 @@
 
 .tablerows {
     width:100%;
+
+}
+
+.tablerows td{
+    width:100vw;
 }
 
 .tablerows h2{

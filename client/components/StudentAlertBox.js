@@ -1,10 +1,11 @@
 import styles from "../styles/StudentAlertBox.module.css";
 import { useEffect, useState } from "react";
-
+import {useRouter} from "next/router";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { IconContext } from "react-icons";
 
 export default function StudentAlertBox() {
+	const router = useRouter();
 	const [students, setStudents] = useState([]);
 	const [courses, setCourses] = useState([])
 	const [failedLogins, setFailedLogins] = useState([])
@@ -174,7 +175,7 @@ export default function StudentAlertBox() {
 							failedLogins.map( (student, index) => (
 								<tr className={styles.tablerows} key={index}>
 									<td>
-										<h2>{student.first_name} {student.last_name}: {student.courses.toString()}</h2>
+										<h2 className={styles.tableHeader}>{student.first_name} {student.last_name}: {student.courses.toString()}</h2>
 										<div className={styles.description}>
 											<h3>
 												{student.count} failed {student.logins} in the past week
