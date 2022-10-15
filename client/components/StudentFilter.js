@@ -59,7 +59,7 @@ export default function StudentFilter(props){ //Add props to data.
         if (successes.length > 0){
             //Change this for different datetime format
             let date = new Date(successes.slice(-1)[0].datetime)
-            return <p>{date.toString()}</p>
+            return <p>{date.toDateString()}, {date.toLocaleTimeString("en-US")}</p>
         }
         else{
             return <p>No Failed Logins</p>

@@ -23,6 +23,7 @@ export default function CoursePage(){
         <div>
             <Navbar/>
             {/* Graph hoes here */}
+            <h1>This is {courseid}</h1>
             <StudentFilter courseid={courseid}/>
             <PinnedStudents/>
             <StudentAlertBox/>
