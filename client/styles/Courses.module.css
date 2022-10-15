@@ -55,6 +55,11 @@
     margin-left: none;
 }
 
+.backbutton:hover{
+    transition: 0.2s ease-in;
+    cursor: pointer;
+}
+
 .studenttable{
     grid-area: studenttable;
 }

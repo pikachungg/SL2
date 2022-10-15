@@ -15,6 +15,12 @@
     border: none;
     margin-left: none;
 }
+
+.backbutton:hover{
+    transition: 0.2s ease-in;
+    cursor: pointer;
+}
+
 .studentheader h1{
     font-size: 18px;
     padding: 10px;
