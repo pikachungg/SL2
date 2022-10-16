@@ -70,7 +70,8 @@ export default function Home() {
 
 						<h2>
 							Welcome back {professor.first_name}{" "}
-							{professor.last_name}
+							{professor.last_name}, you're logged in with {professor.email}{" "}
+							| <b>Select Course Section to View Analytics:</b>
 						</h2>
 	
 						{courses.map((element) => (
