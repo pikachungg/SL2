@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
 import PinnedStudents from "../components/PinnedStudents";
 import StudentAlertBox from '../components/StudentAlertBox';
+import Head from 'next/head'
 
 
 export default function Home() {
@@ -50,6 +51,9 @@ export default function Home() {
 
 	return (
 		<div className={styles.container}>
+			<Head>
+				<title>SL2 | Home</title>
+			</Head>
 			<Navbar />
 			<div className={styles.dashboard}>
 				<div className={styles.sectionlist}>
@@ -65,10 +69,10 @@ export default function Home() {
 						<hr></hr>
 
 						<h2>
-							Logged in as {professor.first_name}{" "}
-							{professor.last_name} with e-mail {professor.email}{" "}
-							| Select Course Section to View Login Analytics:
+							Welcome back {professor.first_name}{" "}
+							{professor.last_name}
 						</h2>
+	
 						{courses.map((element) => (
 							<button className={styles.courselist} onClick={ () => redirectCourse(element) }>{element}</button>
 						))}
