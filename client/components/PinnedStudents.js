@@ -4,33 +4,13 @@ import { MdGroupAdd, MdRemoveCircle } from "react-icons/md";
 import { IconContext } from "react-icons";
 import { useEffect, useState } from "react";
 
-export default function PinnedStudents() {
-	const [pinnedStudents, setPinnedStudents] = useState([]);
+export default function PinnedStudents(props) {
 	const [update, setUpdate] = useState(true);
 
-	useEffect(() => {
-
-		if (localStorage.getItem("user_sl2")){
-			const endpoint = `http://localhost:8000/professors/uid/${localStorage.getItem(
-				"user_sl2",
-			)}`;
-			const options = {
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			};
-			
-			fetch(endpoint, options)
-				.then(res => res.json())
-				.then((data) => {
-					let pinnedStudents = data.pinned;
-					setPinnedStudents(pinnedStudents);
-				});
-		}
-	}, [update]);
+	if (props.pinnedStudents === undefined) return <p>Loading</p>
 
 	const removePin = (suid) => {
+		console.log(suid)
 		const endpoint = `http://localhost:8000/professors/pinned?puid=${localStorage.getItem(
 			"user_sl2",
 		)}&suid=${suid}`;
@@ -40,18 +20,18 @@ export default function PinnedStudents() {
 				"Content-Type": "application/json",
 			},
 		};
-
 		fetch(endpoint, options)
 			.then((res) => res.json())
 			.then((data) => {
 				setUpdate(!update);
 			});
+		props.removed(suid)
 	};
 
     const pinnedStudentsTable = 
             <table className={styles.table}>
 				<tbody>
-					{pinnedStudents.map((student) => (
+					{props.pinnedStudents.map((student) => (
 						<tr className={styles.tablerow} key={student}>
 							<StudentPinCard uid={student} />
 							<td>
@@ -79,7 +59,7 @@ export default function PinnedStudents() {
 				</IconContext.Provider>
 				<h4 className={styles.titletext}>PINNED STUDENTS</h4>
 			</div>
-			{pinnedStudents.length > 0 ? pinnedStudentsTable : <p>No students pinned</p>}
+			{props.pinnedStudents.length > 0 ? pinnedStudentsTable : <p>No students pinned</p>}
 		</div>
 	);
 }

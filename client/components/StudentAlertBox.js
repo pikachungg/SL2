@@ -64,8 +64,6 @@ export default function StudentAlertBox() {
 		calculateFailedLogins(students)
 	}, [students])
 
-	console.log(failedLogins)
-
 	const makeQueryString = (courses) => {
 		let queryString = '?'
 		for (let i = 0; i < courses.length; i++){
@@ -123,8 +121,6 @@ export default function StudentAlertBox() {
 		})
 		setFailedLogins(result)
 	}
-
-	console.log(failedLogins)
 
 	return (
 		<div className={styles.container}>

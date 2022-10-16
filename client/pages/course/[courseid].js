@@ -4,22 +4,57 @@ import PinnedStudents from '../../components/PinnedStudents';
 import Navbar from "../../components/Navbar";
 import StudentAlertBox from '../../components/StudentAlertBox';
 import styles from "../../styles/Courses.module.css"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head'
+import { HiChartSquareBar } from "react-icons/hi";
+import { IconContext } from "react-icons";
 
 export default function CoursePage(){
 
     const router = useRouter()
     const { courseid } = router.query
+    const [pinnedStudents, setPinnedStudents] = useState([])
 
     useEffect(() => {
-		if (localStorage.getItem("user_sl2")) {
-        }
-        else{
-			router.replace("/login");
+		if (courseid){
+            const endpoint = `http://localhost:8000/professors/uid/${localStorage.getItem(
+				"user_sl2",
+			)}`;
+			const options = {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			};
+	
+			fetch(endpoint, options)
+				.then( res => res.json())
+				.then( data => {
+					setPinnedStudents(data.pinned);
+				});
         }
     }, [])
+
+	const updateHappened = (studentid) => {
+		if (!pinnedStudents.includes(studentid)){
+			setPinnedStudents([...pinnedStudents, studentid])
+		}
+		else{
+			//Set error message
+		}
+	}
+
+	function arrayRemove(arr, value) { 
+        return arr.filter(function(ele){ 
+            return ele != value; 
+        });
+    }
     
+	const removedHappened = (studentid) => {
+		setPinnedStudents(arrayRemove(pinnedStudents, studentid))
+	}
+    
+
     return (
         <div className={styles.container}>
 			<Head>
@@ -30,11 +65,15 @@ export default function CoursePage(){
 				<div className={styles.chart}>
 					<div className={styles.courseheader}>
 						<button className={styles.backbutton} onClick={() => router.back()}>Back</button>
-						<img
+						{/* <img
 							src="../images/courselogo.png"
 							alt="Course Analytics Logo"
 							className={styles.courseLogo}
-						/>
+						/> */}
+						<IconContext.Provider
+							value={{ color: "#FF6F00", size: "40px" }}>
+							<HiChartSquareBar />
+						</IconContext.Provider>
 						<h1>Selected Course Analytics: {courseid}</h1>
 					</div>
                     <hr></hr>
@@ -45,14 +84,14 @@ export default function CoursePage(){
 				</div>
            
                 <div className={styles.studenttable}>
-                    <StudentFilter courseid={courseid}/>
+                    <StudentFilter courseid={courseid} pinnedStudents={pinnedStudents} update={updateHappened} removed={removedHappened}/>
                 </div>
 				<div className={styles.alerts}>
 					{/* this is for alert box */}
           			<StudentAlertBox/>
 				</div>
 				<div className={styles.pinned}>
-					<PinnedStudents />
+					<PinnedStudents pinnedStudents={pinnedStudents} removed={removedHappened}/>
 				</div>
 			</div>
 		</div>
