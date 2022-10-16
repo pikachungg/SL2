@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from "react";
 import styles from "../../styles/Students.module.css"
 import StudentLoginHistory from "../../components/StudentLoginHistory"
-import StudentAlertBox from "../../components/StudentAlertBox"
+import Head from 'next/head'
 
 
 export default function StudentPage(){
@@ -35,11 +35,14 @@ export default function StudentPage(){
     if (!studentid) return 'loading'
     return (
             <div className={styles.container}>
+                <Head>
+				    <title>SL2 | {`${studentid}`}</title>   
+                </Head>
                 <Navbar />
                 <div className={styles.courseanalytics}>
                     <div className={styles.chart}>
                         <div className={styles.studentheader}>
-						    <button className={styles.backbutton}>Back to Course Analytics</button>
+						    <button className={styles.backbutton} onClick={() => router.back()}>Back</button>
                             <img
                                 src="../images/courselogo.png"
                                 alt="Course Analytics Logo"

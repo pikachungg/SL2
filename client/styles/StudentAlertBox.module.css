@@ -83,3 +83,11 @@
 .description p{
     font-size: 14px;
 }
+
+.link{
+    cursor: pointer;
+}
+
+.link:hover{
+    color: #CD794D;
+}
