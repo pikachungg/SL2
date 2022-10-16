@@ -2,7 +2,7 @@ import styles from "../styles/PinnedStudents.module.css";
 import StudentPinCard from "./StudentPinCard";
 import { MdGroupAdd, MdRemoveCircle } from "react-icons/md";
 import { IconContext } from "react-icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function PinnedStudents(props) {
 	const [update, setUpdate] = useState(true);

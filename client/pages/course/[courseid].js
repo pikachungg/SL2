@@ -33,7 +33,11 @@ export default function CoursePage(){
 					setPinnedStudents(data.pinned);
 				});
         }
-    }, [])
+    }, [courseid])
+
+	const refreshData = () => {
+		router.replace(router.asPath);
+	  }
 
 	const updateHappened = (studentid) => {
 		if (!pinnedStudents.includes(studentid)){
