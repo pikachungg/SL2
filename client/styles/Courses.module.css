@@ -10,6 +10,35 @@
     vertical-align: middle;
 }
 
+
+.chartcontainer{
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    height:44vh;
+    margin-top: 20px;
+    border-bottom: 10px solid #FF6C24;
+    width: auto;
+    margin-right: 20px;
+    margin-left: 20px;
+    padding: 20px;
+    padding-bottom: 0px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.171);
+}
+
+.chartcontainer img{
+    outline: none;
+    border: none;
+    width: 100%;
+}
+
+.chartcontainer h3{
+    font-size: 16px;
+    font-family: Mulish;
+    padding-left: 20px;
+}
+
+
 .courseheader h3{
     font-size: 14px;
 }
@@ -35,6 +64,7 @@
     'studenttable pinned';
     margin-right: 20px;
 }
+
 .chart hr{
     border-top: 0.5px solid rgb(168, 168, 168);
     border-bottom: 0px;
@@ -68,7 +98,6 @@
 }
 .chart{
     grid-area: chart;
-    height: 200px;
 }
 .pinned{
     grid-area: pinned;

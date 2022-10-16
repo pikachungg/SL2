@@ -38,7 +38,6 @@ export default function StudentFilter(props){ //Add props to data.
 
     }, [props.courseid])
     
-
     if (!props.courseid) return 'loading'
 
     const calculateFailedLogins = (logs) => {
@@ -80,6 +79,37 @@ export default function StudentFilter(props){ //Add props to data.
         return student.split("@")[0]
     }
 
+    const determinePinned = (studentid) => {
+        return props.pinnedStudents.includes(studentid)
+    }
+
+    const pinStudent = (studentid) => {
+        if (props.pinnedStudents.includes(studentid)){
+            const endpoint = `http://localhost:8000/professors/pinned?puid=${localStorage.getItem(
+                "user_sl2",
+            )}&suid=${studentid}`;
+            const options = {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            };
+            fetch(endpoint, options)
+            props.removed(studentid)
+        }
+        else{
+            props.update(studentid)
+            const endpoint = `http://localhost:8000/professors/pinned?puid=${localStorage.getItem("user_sl2",)}&suid=${studentid}`;
+            const options = {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            };
+            fetch(endpoint, options)
+        }
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.insideContainer}>
@@ -105,7 +135,7 @@ export default function StudentFilter(props){ //Add props to data.
                     {
                         filteredStudents.map( student => (
                             <tr className={styles.tablerows} key={student.uid}>
-                                <td className={styles.tablecolumnspin}><input type="checkbox"/></td>
+                                <td className={styles.tablecolumnspin}><input type="checkbox" onChange={ () => pinStudent(student.username)} checked={determinePinned(student.username)}/></td>
                                 <td className={styles.tablecolumns + " " + styles.link}><Link href={`/student/${getStudentUID(student.email)}`}><b>{student.first_name} {student.last_name}</b></Link></td>
                                 <td className={styles.tablecolumns}>{student.email.split('@')[0]}</td>
                                 <td className={styles.tablecolumns}>{calculateFailedLogins(student.logs)}</td>
