@@ -3,7 +3,7 @@ import StudentFilter from "../../components/StudentFilter";
 import PinnedStudents from '../../components/PinnedStudents';
 import Navbar from "../../components/Navbar";
 import StudentAlertBox from '../../components/StudentAlertBox';
-import Styles from "../../styles/Courses.module.css"
+import styles from "../../styles/Courses.module.css"
 import { useEffect } from 'react';
 
 export default function CoursePage(){
@@ -20,13 +20,34 @@ export default function CoursePage(){
     }, [])
     
     return (
-        <div>
-            <Navbar/>
-            {/* Graph hoes here */}
-            <h1>This is {courseid}</h1>
-            <StudentFilter courseid={courseid}/>
-            <PinnedStudents/>
-            <StudentAlertBox/>
-        </div>
+        <div className={styles.container}>
+			<Navbar />
+			<div className={styles.courseanalytics}>
+				<div className={styles.chart}>
+					<div className={styles.courseheader}>
+						<button className={styles.backbutton}>Back to Dashboard</button>
+						<img
+							src="../images/courselogo.png"
+							alt="Course Analytics Logo"
+							className={styles.courseLogo}
+						/>
+						<h1>Selected Course Analytics: {courseid}</h1>
+					</div>
+                    <hr></hr>
+				</div>
+           
+                <div className={styles.studenttable}>
+                    
+                    <StudentFilter courseid={courseid}/>
+                </div>
+				<div className={styles.alerts}>
+					{/* this is for alert box */}
+          			<StudentAlertBox/>
+				</div>
+				<div className={styles.pinned}>
+					<PinnedStudents />
+				</div>
+			</div>
+		</div>
     )
 }

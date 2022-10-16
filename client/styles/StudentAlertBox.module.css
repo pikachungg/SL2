@@ -1,38 +1,85 @@
 
 
 .container{
-    margin-left: 20%; /*remove this later*/
-    width: 15%;
+    width: auto;
     height: 40vh;
     background-color: white;
     border-radius: 10px;
     padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     border-bottom: 10px solid #E75C18;
     box-shadow: 0 2.5px 2.5px 2.5px rgb(219, 219, 219);
 
 }
+/*
+.insidecontainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}*/
 
 .title{
     display: flex;
+    color: #E75C18;
+    margin-left: 2%;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    font-size: 16px;
 }
 
 .title h3{
     margin-left: 3%;
+    padding-bottom: 10px;
+    font-size: 16px;
 }
 
 .table{
-    margin-top: 5%;
-    width: 100%;
+    margin-top: 0px;
+    width:100%;
     height: 35vh;
     display: block;
     overflow-y: scroll;
     border-collapse: collapse;
+    overflow-x: hidden;
 }
 
-.tablerows:nth-child(even) {
+.tablerows:nth-child(odd) {
     background: #F9F4F0;
 }
 
+.tablerows {
+    width:100%;
+
+}
+
+.tablerows td{
+    width:100vw;
+}
+
+.tablerows h2{
+    font-size: 15px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-weight: 700;
+}
+
+.tablerows h3{
+    font-size: 14px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-weight: 400;
+}
+
+.tablerows h4{
+    font-size: 14px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    font-weight: 400;
+}
+
 .description p{
-    font-size: 0.75rem;
+    font-size: 14px;
 }

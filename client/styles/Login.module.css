@@ -68,6 +68,10 @@
     margin-bottom: 30px;
 }
 
+.loginform button:hover{
+    cursor: pointer;
+}
+
 .loginform a{
     color:#FF6C24;
     text-decoration: none;

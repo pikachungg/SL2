@@ -1,10 +1,11 @@
 import styles from "../styles/StudentAlertBox.module.css";
 import { useEffect, useState } from "react";
-
+import {useRouter} from "next/router";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { IconContext } from "react-icons";
 
 export default function StudentAlertBox() {
+	const router = useRouter();
 	const [students, setStudents] = useState([]);
 	const [courses, setCourses] = useState([])
 	const [failedLogins, setFailedLogins] = useState([])
@@ -102,13 +103,13 @@ export default function StudentAlertBox() {
 		// interpolate into return string / tag
 		return (
 			<div className={styles.description}>
-				<p>
+				<h3>
 					{count} failed {logins} in the past week
-				</p>
-				<p>
+				</h3>
+				<h4>
 					Last Failed Login: {mostRecent.toDateString()},{" "}
 					{mostRecent.toLocaleTimeString("en-US")}
-				</p>
+				</h4>
 			</div>
 		);
 	}
@@ -159,11 +160,10 @@ export default function StudentAlertBox() {
 
 	return (
 		<div className={styles.container}>
-			<div>
+			<div className={styles.insidecontainer}>
 				<div className={styles.title}>
 					<IconContext.Provider
-						value={{ color: "orange", size: "25px" }}
-					>
+						value={{ color: "#FF6F00", size: "20px" }}>
 						<RiErrorWarningFill />
 					</IconContext.Provider>
 					<h3>STUDENT ALERTS</h3>
@@ -175,15 +175,16 @@ export default function StudentAlertBox() {
 							failedLogins.map( (student, index) => (
 								<tr className={styles.tablerows} key={index}>
 									<td>
-										<h4>{student.first_name} {student.last_name}: {student.courses.toString()}</h4>
+										<h2 className={styles.tableHeader}>{student.first_name} {student.last_name}: {student.courses.toString()}</h2>
 										<div className={styles.description}>
-											<p>
+											<h3>
 												{student.count} failed {student.logins} in the past week
-											</p>
-											<p>
-												Last Failed Login: {student.mostRecent.toDateString()}, {" "}
+											</h3>
+											<h4>
+												Last Failed Login Date + Time: <br></br>{student.mostRecent.toDateString()}, {" "}
+												
 												{student.mostRecent.toLocaleTimeString("en-US")}
-											</p>
+											</h4>
 										</div>
 									</td>
 								</tr>

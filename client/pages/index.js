@@ -80,7 +80,7 @@ export default function Home() {
 				</div>
 				<div className={styles.alerts}>
 					{/* this is for alert box */}
-          <StudentAlertBox/>
+          			<StudentAlertBox/>
 				</div>
 				<div className={styles.pinned}>
 					<PinnedStudents />
