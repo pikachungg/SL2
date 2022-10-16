@@ -34,6 +34,10 @@ export default function CoursePage(){
 						<h1>Selected Course Analytics: {courseid}</h1>
 					</div>
                     <hr></hr>
+					<div className={styles.chartcontainer}>
+						<img src="../images/scr1.jpg"></img>
+						<h3>* This is an image for display purposes until completed development, pending approval at MVP Beta Gate Review.</h3>
+					</div>
 				</div>
            
                 <div className={styles.studenttable}>

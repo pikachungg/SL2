@@ -5,7 +5,7 @@
     grid-template-columns: 75% 25%;
     grid-template-areas: 
     'sectionlist alerts'
-    'chart pinned';
+    'sectionlist pinned';
     margin-right: 20px;
 }
 
@@ -15,9 +15,39 @@
 .alert{
     grid-area: alerts;
 }
+/*
 .chart{
     grid-area: chart;
 }
+
+.chartcontainer{
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    height: auto;
+    margin-top: 10px;
+    border-bottom: 10px solid #FF6C24;
+    width: 90%;
+    margin-right: 20px;
+    margin-left: 10px;
+    padding: 20px;
+    padding-top: 30px;
+    padding-bottom: 0px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.329);
+}
+
+.chartcontainer img{
+    outline: none;
+    border: none;
+    width: 100%;
+}
+
+.chartcontainer h3{
+    font-size: 16px;
+    font-family: Mulish;
+    padding-left: 20px;
+}
+*/
 .pinned{
     grid-area: pinned;
 }
