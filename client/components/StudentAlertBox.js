@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {useRouter} from "next/router";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { IconContext } from "react-icons";
+import Link from 'next/link'
 
 export default function StudentAlertBox() {
 	const router = useRouter();
@@ -78,42 +79,6 @@ export default function StudentAlertBox() {
 		return queryString
 	}
 
-	const OLDcalculateFailedLogins = (logs) => {
-		let count = 0
-		let sortedLogs = logs.sort(function (a, b) {
-			return new Date(b.datetime) - new Date(a.datetime)
-		});
-		
-		let now = new Date(); // current date
-		let weekRange = now.setDate(now.getDate() - 7) // 7 day range
-
-		for (let i = 0; i < sortedLogs.length; i++) {
-			if (new Date(sortedLogs[i].datetime) < weekRange) {
-				break;
-			}
-
-			if (sortedLogs[i].result.toLowerCase() === "failure") {
-				count += 1;
-			}
-		}
-
-		let mostRecent = new Date(sortedLogs[0].datetime); // most recent failure
-		let logins = count == 1 ? "login" : "logins";
-
-		// interpolate into return string / tag
-		return (
-			<div className={styles.description}>
-				<h3>
-					{count} failed {logins} in the past week
-				</h3>
-				<h4>
-					Last Failed Login: {mostRecent.toDateString()},{" "}
-					{mostRecent.toLocaleTimeString("en-US")}
-				</h4>
-			</div>
-		);
-	}
-
 	const calculateFailedLogins = (students) => {
 
 		let result = []
@@ -141,6 +106,7 @@ export default function StudentAlertBox() {
 				let logins = count == 1 ? "login" : "logins";
 	
 				result.push({
+					username: student.username,
 					first_name: student.first_name,
 					last_name: student.last_name,
 					courses: student.courses,
@@ -157,6 +123,8 @@ export default function StudentAlertBox() {
 		})
 		setFailedLogins(result)
 	}
+
+	console.log(failedLogins)
 
 	return (
 		<div className={styles.container}>
@@ -175,7 +143,7 @@ export default function StudentAlertBox() {
 							failedLogins.map( (student, index) => (
 								<tr className={styles.tablerows} key={index}>
 									<td>
-										<h2 className={styles.tableHeader}>{student.first_name} {student.last_name}: {student.courses.toString()}</h2>
+										<Link href={`/student/${student.username}`}><h2 className={styles.link }>{student.first_name} {student.last_name}: {student.courses.toString()}</h2></Link>
 										<div className={styles.description}>
 											<h3>
 												{student.count} failed {student.logins} in the past week

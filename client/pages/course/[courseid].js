@@ -5,6 +5,7 @@ import Navbar from "../../components/Navbar";
 import StudentAlertBox from '../../components/StudentAlertBox';
 import styles from "../../styles/Courses.module.css"
 import { useEffect } from 'react';
+import Head from 'next/head'
 
 export default function CoursePage(){
 
@@ -21,11 +22,14 @@ export default function CoursePage(){
     
     return (
         <div className={styles.container}>
+			<Head>
+				<title>SL2 | {`${courseid}`}</title>
+			</Head>
 			<Navbar />
 			<div className={styles.courseanalytics}>
 				<div className={styles.chart}>
 					<div className={styles.courseheader}>
-						<button className={styles.backbutton}>Back to Dashboard</button>
+						<button className={styles.backbutton} onClick={() => router.back()}>Back</button>
 						<img
 							src="../images/courselogo.png"
 							alt="Course Analytics Logo"
@@ -37,7 +41,6 @@ export default function CoursePage(){
 				</div>
            
                 <div className={styles.studenttable}>
-                    
                     <StudentFilter courseid={courseid}/>
                 </div>
 				<div className={styles.alerts}>
