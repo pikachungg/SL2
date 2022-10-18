@@ -22,7 +22,9 @@
   "homepage": "https://github.com/Dragoffs/SL2#readme",
   "dependencies": {
     "js-cookie": "^3.0.1",
-    "react-icons": "^4.4.0"
+    "react-icons": "^4.4.0",
+    "swagger-ui-express": "^4.5.0",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "concurrent": "^0.3.2",
