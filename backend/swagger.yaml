@@ -60,8 +60,8 @@ paths:
     /students/classid/{classId}:
         get:
             tags:
-                - Student
-            summary: Returns all students by class ids,
+                - Students
+            summary: Returns all students by class IDs,
             description: Given a class id, return all of the students enrolled in this class.
             operationId: getStudentsByClassId
             parameters:
@@ -77,12 +77,12 @@ paths:
                     description: successful operation
                 "500":
                     description: Server error
-    /students/uid/uid:
+    /students/uid/{uid}:
         get:
             tags:
-                - Student
+                - Students
             summary: Get student by their University ID.
-            description: Getting students by the university id.
+            description: Returns a single student by their university id.
             operationId: getStudentsByUID
             parameters:
                 - name: uid
@@ -100,238 +100,150 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: "#/components/schemas/Pet"
+                                    $ref: "#/components/schemas/Student"
                 "500":
                     description: Server error
-            security:
-                - petstore_auth:
-                      - write:pets
-                      - read:pets
-    /pet/{petId}:
+    /students/id/{id}:
         get:
             tags:
-                - pet
-            summary: Find pet by ID
-            description: Returns a single pet
+                - Students
+            summary: Find student by ID.
+            description: Returns a single student by their university username.
             operationId: getPetById
             parameters:
-                - name: petId
+                - name: id
                   in: path
-                  description: ID of pet to return
+                  description: ID of the student to return
                   required: true
                   schema:
-                      type: integer
-                      format: int64
+                      type: string
+                      example: mxt4202
             responses:
                 "200":
                     description: successful operation
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Pet"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Pet"
-                "400":
-                    description: Invalid ID supplied
-                "404":
-                    description: Pet not found
-            security:
-                - api_key: []
-                - petstore_auth:
-                      - write:pets
-                      - read:pets
-        post:
-            tags:
-                - pet
-            summary: Updates a pet in the store with form data
-            description: ""
-            operationId: updatePetWithForm
-            parameters:
-                - name: petId
-                  in: path
-                  description: ID of pet that needs to be updated
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-                - name: name
-                  in: query
-                  description: Name of pet that needs to be updated
-                  schema:
-                      type: string
-                - name: status
-                  in: query
-                  description: Status of pet that needs to be updated
-                  schema:
-                      type: string
-            responses:
-                "405":
-                    description: Invalid input
-            security:
-                - petstore_auth:
-                      - write:pets
-                      - read:pets
-        delete:
-            tags:
-                - pet
-            summary: Deletes a pet
-            description: delete a pet
-            operationId: deletePet
-            parameters:
-                - name: api_key
-                  in: header
-                  description: ""
-                  required: false
-                  schema:
-                      type: string
-                - name: petId
-                  in: path
-                  description: Pet id to delete
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-            responses:
-                "400":
-                    description: Invalid pet value
-            security:
-                - petstore_auth:
-                      - write:pets
-                      - read:pets
-    /pet/{petId}/uploadImage:
-        post:
-            tags:
-                - pet
-            summary: uploads an image
-            description: ""
-            operationId: uploadFile
-            parameters:
-                - name: petId
-                  in: path
-                  description: ID of pet to update
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-                - name: additionalMetadata
-                  in: query
-                  description: Additional Metadata
-                  required: false
-                  schema:
-                      type: string
-            requestBody:
-                content:
-                    application/octet-stream:
-                        schema:
-                            type: string
-                            format: binary
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/ApiResponse"
-            security:
-                - petstore_auth:
-                      - write:pets
-                      - read:pets
-    /store/inventory:
+                                $ref: "#/components/schemas/Student"
+                "500":
+                    description: Internal Server Error
+    /professors/uid/{puid}:
         get:
             tags:
-                - store
-            summary: Returns pet inventories by status
-            description: Returns a map of status codes to quantities
-            operationId: getInventory
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                additionalProperties:
-                                    type: integer
-                                    format: int32
-            security:
-                - api_key: []
-    /store/order:
-        post:
-            tags:
-                - store
-            summary: Place an order for a pet
+                - Professors
+            summary: Get professor by ID
             description: Place a new order in the store
-            operationId: placeOrder
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/Order"
-                    application/xml:
-                        schema:
-                            $ref: "#/components/schemas/Order"
-                    application/x-www-form-urlencoded:
-                        schema:
-                            $ref: "#/components/schemas/Order"
+            operationId: getProfessorById
+            parameters:
+                - name: puid
+                  in: path
+                  description: University id of professor
+                  required: true
+                  schema:
+                      type: string
+                      example: 6317f5f08f5025ccd1882972
             responses:
                 "200":
                     description: successful operation
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Order"
-                "405":
-                    description: Invalid input
-    /store/order/{orderId}:
+                                $ref: "#/components/schemas/Professor"
+                "500":
+                    description: Internal Server Error
+    /professors/notifications/{puid}:
         get:
             tags:
-                - store
-            summary: Find purchase order by ID
-            description: For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
-            operationId: getOrderById
+                - Professors
+            summary: Get notifications for a professor
+            description: Returns most top 5 most recent student's attempts accross all sections.
+            operationId: getProfessorNotification
             parameters:
-                - name: orderId
+                - name: puid
                   in: path
-                  description: ID of order that needs to be fetched
+                  description: University id of professor
                   required: true
                   schema:
-                      type: integer
-                      format: int64
+                      type: string
+                      example: 6317f5f08f5025ccd1882972
             responses:
                 "200":
                     description: successful operation
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Order"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Order"
-                "400":
-                    description: Invalid ID supplied
-                "404":
-                    description: Order not found
-        delete:
-            tags:
-                - store
-            summary: Delete purchase order by ID
-            description: For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
-            operationId: deleteOrder
+                                $ref: "#/components/schemas/Notification"
+                "500":
+                    description: Internal Server Error
+    /professors/pinned/{puid}:
+        get:
+            tags: 
+                - Professors
+            summary: Get pinned students for a professor
+            description: Returns all pinned students for a professor
+            operationId: getProfessorPinned
             parameters:
-                - name: orderId
+                - name: puid
                   in: path
-                  description: ID of the order that needs to be deleted
+                  description: University id of professor
                   required: true
                   schema:
-                      type: integer
-                      format: int64
+                      type: string
+                      example: 6317f5f08f5025ccd1882972
             responses:
-                "400":
-                    description: Invalid ID supplied
-                "404":
-                    description: Order not found
-components:
+                "200":
+                    description: successful operation
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                example: ["axl7603", "exn9307"]
+                "500":
+                    description: Internal Server Error
+    /professors/pinned?puid={puid}&suid={suid}:
+        patch:
+            tags:
+                - Professors
+            summary: Add a student to the pinned student's list
+            description: Add a pin student
+            operationId: addPinned
+            parameters:
+                - name: puid
+                  in: path
+                  description: University id of professor
+                  required: true
+                  schema:
+                      type: string
+                      example: 6317f5f08f5025ccd1882972
+                - name: suid
+                  in: path
+                  description: Student's username
+                  required: true
+                  schema:
+                      type: string
+                      example: sxk7286
+        delete:
+            tags: 
+                - Professors
+            summary: Remove student from pinned list
+            description: Removes a student from the professor's pinned list
+            operationId: removePinnedStudent
+            parameters:
+                - name: puid
+                  in: path
+                  description: University id of professor
+                  required: true
+                  schema:
+                      type: string
+                      example: 6317f5f08f5025ccd1882972
+                - name: suid
+                  in: path
+                  description: Student's username
+                  required: true
+                  schema:
+                      type: string
+                      example: sxk7286
+components:   
     schemas:
         Authentication:
             type: object
@@ -349,155 +261,76 @@ components:
             example: 42ad65ac759ccc385
             xml:
                 name: customer
-        Address:
+        Student:
             type: object
             properties:
-                street:
+                _id:
                     type: string
-                    example: 437 Lytton
-                city:
-                    type: string
-                    example: Palo Alto
-                state:
-                    type: string
-                    example: CA
-                zip:
-                    type: string
-                    example: "94301"
-            xml:
-                name: address
-        Category:
-            type: object
-            properties:
-                id:
+                    example: 63487bf3040a5099e5860f72
+                uid:
                     type: integer
                     format: int64
-                    example: 1
-                name:
-                    type: string
-                    example: Dogs
-            xml:
-                name: category
-        User:
-            type: object
-            properties:
-                id:
-                    type: integer
-                    format: int64
-                    example: 10
+                    example: 41033822
                 username:
                     type: string
-                    example: theUser
-                firstName:
+                    example: sxk7286
+                first_name:
                     type: string
-                    example: John
-                lastName:
+                    example: Stacey
+                last_name:
                     type: string
-                    example: James
+                    example: Keran
+                courses:
+                    type: array
+                    example: ["ISTE 140-1"]
                 email:
                     type: string
-                    example: john@email.com
+                    example: sxk7286@rit.edu
+                ip:
+                    type: string
+                    example: 138.255.96.19
+                logs:
+                    type: array
+                    example: []
+        Professor:
+            type: object
+            properties:
+                _id:
+                    type: string
+                    example: 6317f5f08f5025ccd1882972
+                first_name:
+                    type: string
+                    example: Fredrick
+                last_name:
+                    type: string
+                    example: Tal
+                courses:
+                    type: array
+                    example: []
+                email:
+                    type: string
+                    example: Fredrick.Tal@rit.edu
                 password:
                     type: string
-                    example: "12345"
-                phone:
-                    type: string
-                    example: "12345"
-                userStatus:
-                    type: integer
-                    description: User Status
-                    format: int32
-                    example: 1
-            xml:
-                name: user
-        Tag:
-            type: object
-            properties:
-                id:
-                    type: integer
-                    format: int64
-                name:
-                    type: string
-            xml:
-                name: tag
-        Pet:
-            required:
-                - name
-                - photoUrls
-            type: object
-            properties:
-                id:
-                    type: integer
-                    format: int64
-                    example: 10
-                name:
-                    type: string
-                    example: doggie
-                category:
-                    $ref: "#/components/schemas/Category"
-                photoUrls:
+                    example: test
+                pinned:
                     type: array
-                    xml:
-                        wrapped: true
-                    items:
-                        type: string
-                        xml:
-                            name: photoUrl
-                tags:
-                    type: array
-                    xml:
-                        wrapped: true
-                    items:
-                        $ref: "#/components/schemas/Tag"
-                status:
-                    type: string
-                    description: pet status in the store
-                    enum:
-                        - available
-                        - pending
-                        - sold
-            xml:
-                name: pet
-        ApiResponse:
+                    example: ["axl7603", "exn9307"]
+        Notification:
             type: object
             properties:
-                code:
-                    type: integer
-                    format: int32
-                type:
+                username:
                     type: string
+                    example: mxl4647
+                datetime:
+                    type: string
+                    example: 2022-10-18T17:50:19.210Z
+                result:
+                    type: string
+                    example: Failure
+        SystemMessage:
+            type: object
+            properties:
                 message:
                     type: string
-            xml:
-                name: "##default"
-    requestBodies:
-        Pet:
-            description: Pet object that needs to be added to the store
-            content:
-                application/json:
-                    schema:
-                        $ref: "#/components/schemas/Pet"
-                application/xml:
-                    schema:
-                        $ref: "#/components/schemas/Pet"
-        UserArray:
-            description: List of user object
-            content:
-                application/json:
-                    schema:
-                        type: array
-                        items:
-                            $ref: "#/components/schemas/User"
-    securitySchemes:
-        petstore_auth:
-            type: oauth2
-            flows:
-                implicit:
-                    authorizationUrl: https://petstore3.swagger.io/oauth/authorize
-                    scopes:
-                        write:pets: modify pets in your account
-                        read:pets: read your pets
-        api_key:
-            type: apiKey
-            name: api_key
-            in: header
+                    example: successfully added student
