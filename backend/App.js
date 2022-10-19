@@ -8,6 +8,7 @@ const port = 8000;
 app.use(cors());
 app.use(bodyParser.json());
 
+
 const authetication = require("./routes/Authetication.js");
 const students = require("./routes/Students.js");
 const professors = require("./routes/Professors.js");
@@ -20,7 +21,7 @@ var options = {
   customSiteTitle: "SL2 | Documentation",
 };
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 app.post("/login", authetication.login);
 
