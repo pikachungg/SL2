@@ -1,10 +1,13 @@
+import { useState } from "react";
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
+import { Snackbar, Alert } from "@mui/material";
 import styles from '../styles/Login.module.css'
 import { useRouter } from 'next/router'
 
 export default function Login() {
   const router = useRouter()
+  const [loginError, setLoginError] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -29,8 +32,8 @@ export default function Login() {
       router.replace('/')
     }
     else{
-      //Handler error here
-      console.log("Wrong username")
+	  setLoginError(true)
+      console.log("Wrong username or password.")
     }
     
   }
@@ -54,6 +57,16 @@ export default function Login() {
                   <label for="email">Password</label><br></br>
                   <input placeholder="| enter password" type="password" id="password" name="password"/>
                 </div>
+	  			<Snackbar
+	  				open={loginError}
+	  				autoHideDuration={5000}
+	  				onClose={setLoginError}
+	  				message="Invalid username or password."
+	  			>
+				  <Alert onClose={setLoginError} severity="success" sx={{ width: '100%' }}>
+				    This is a success message!
+				  </Alert>
+	            </Snackbar>
                 <button type='submit'>Login</button>
                 <h3>Need assistance? <br></br>
                 Please contact the ITS Service Desk at Phone Number 585-475-5000 or visit <a href="help.rit.edu">help.rit.edu.</a></h3>
