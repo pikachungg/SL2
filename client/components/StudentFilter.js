@@ -9,7 +9,7 @@ export default function StudentFilter(props){ //Add props to data.
 
     const [studentList, setStudentList] = useState([])
     const [filteredStudents, setFilteredStudents] = useState([])
-
+    
     useEffect( () => {
         setStudentList(props.studentList)
         setFilteredStudents(props.studentList)
