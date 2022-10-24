@@ -43,6 +43,8 @@ export default function CoursePage(){
         }
     }, [courseid])
 
+	console.log(tableData) //Delete this later
+
     useEffect(() => {
 		if (courseid){
             const endpoint = `http://localhost:8000/professors/uid/${localStorage.getItem(
