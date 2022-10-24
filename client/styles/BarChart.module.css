@@ -1,0 +1,7 @@
+.BarChart{
+    width: 800px;
+    margin-bottom: 200px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    overflow-x: visible;
+}
