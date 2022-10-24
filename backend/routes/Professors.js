@@ -22,6 +22,7 @@ const getProfessorById = router.get('/professors/uid/:uid', (req, res) => {
     })
 })
 
+
 const getCoursesByProfessor = router.get('/professors/courses/:uid', (req, res) => {
     let uid = req.params.uid;
     client.connect( async (err) => {

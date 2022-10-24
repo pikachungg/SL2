@@ -1,0 +1,336 @@
+openapi: 3.0.3
+info:
+    title: Student Login Logger - OpenAPI 3.0
+    description: |-
+        This is the documentation for the RIT SL2 API. You can find out more about the SL2 at [https://github.com/Dragoffs](https://github.com/Dragoffs)
+
+        Some useful links:
+        - [Application Repository](https://github.com/Dragoffs/SL2)
+    contact:
+        email: dec8768@rit.edu
+    license:
+        name: Apache 2.0
+        url: http://www.apache.org/licenses/LICENSE-2.0.html
+    version: 1.0.11
+paths:
+    /login:
+        post:
+            tags:
+                - Authentication
+            summary: Login as a user
+            description: Authenticate a user using email and password.
+            operationId: User Authentication.
+            parameters:
+                - name: email
+                  in: body
+                  description: Email of the user
+                  required: true
+                  schema:
+                      type: string
+                      example: Fredrick.Tal@rit.edu
+                - name: password
+                  in: body
+                  description: Password of the user
+                  required: true
+                  schema:
+                      type: string
+                      example: test
+            requestBody:
+                description: Authenticate a user with email and password.
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Authentication"
+                required: true
+            responses:
+                "200":
+                    description: Successful operation
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/puid"
+                "404":
+                    description: User not found
+                "500":
+                    description: Server failure.
+            security:
+                - petstore_auth:
+                      - write:pets
+                      - read:pets
+    /students/classid/{classId}:
+        get:
+            tags:
+                - Students
+            summary: Returns all students by class IDs,
+            description: Given a class id, return all of the students enrolled in this class.
+            operationId: getStudentsByClassId
+            parameters:
+                - name: classId
+                  in: path
+                  description: Classid associated to the class.
+                  required: true
+                  schema:
+                      type: string
+                      example: ISTE 140-1
+            responses:
+                "200":
+                    description: successful operation
+                "500":
+                    description: Server error
+    /students/uid/{uid}:
+        get:
+            tags:
+                - Students
+            summary: Get student by their University ID.
+            description: Returns a single student by their university id.
+            operationId: getStudentsByUID
+            parameters:
+                - name: uid
+                  in: path
+                  description: Student's university ID
+                  required: true
+                  schema:
+                      type: string
+                      example: 41033822
+            responses:
+                "200":
+                    description: successful operation
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/Student"
+                "500":
+                    description: Server error
+    /students/id/{id}:
+        get:
+            tags:
+                - Students
+            summary: Find student by ID.
+            description: Returns a single student by their university username.
+            operationId: getPetById
+            parameters:
+                - name: id
+                  in: path
+                  description: ID of the student to return
+                  required: true
+                  schema:
+                      type: string
+                      example: mxt4202
+            responses:
+                "200":
+                    description: successful operation
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Student"
+                "500":
+                    description: Internal Server Error
+    /professors/uid/{puid}:
+        get:
+            tags:
+                - Professors
+            summary: Get professor by ID
+            description: Place a new order in the store
+            operationId: getProfessorById
+            parameters:
+                - name: puid
+                  in: path
+                  description: University id of professor
+                  required: true
+                  schema:
+                      type: string
+                      example: 6317f5f08f5025ccd1882972
+            responses:
+                "200":
+                    description: successful operation
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Professor"
+                "500":
+                    description: Internal Server Error
+    /professors/notifications/{puid}:
+        get:
+            tags:
+                - Professors
+            summary: Get notifications for a professor
+            description: Returns most top 5 most recent student's attempts accross all sections.
+            operationId: getProfessorNotification
+            parameters:
+                - name: puid
+                  in: path
+                  description: University id of professor
+                  required: true
+                  schema:
+                      type: string
+                      example: 6317f5f08f5025ccd1882972
+            responses:
+                "200":
+                    description: successful operation
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Notification"
+                "500":
+                    description: Internal Server Error
+    /professors/pinned/{puid}:
+        get:
+            tags: 
+                - Professors
+            summary: Get pinned students for a professor
+            description: Returns all pinned students for a professor
+            operationId: getProfessorPinned
+            parameters:
+                - name: puid
+                  in: path
+                  description: University id of professor
+                  required: true
+                  schema:
+                      type: string
+                      example: 6317f5f08f5025ccd1882972
+            responses:
+                "200":
+                    description: successful operation
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                example: ["axl7603", "exn9307"]
+                "500":
+                    description: Internal Server Error
+    /professors/pinned?puid={puid}&suid={suid}:
+        patch:
+            tags:
+                - Professors
+            summary: Add a student to the pinned student's list
+            description: Add a pin student
+            operationId: addPinned
+            parameters:
+                - name: puid
+                  in: path
+                  description: University id of professor
+                  required: true
+                  schema:
+                      type: string
+                      example: 6317f5f08f5025ccd1882972
+                - name: suid
+                  in: path
+                  description: Student's username
+                  required: true
+                  schema:
+                      type: string
+                      example: sxk7286
+        delete:
+            tags: 
+                - Professors
+            summary: Remove student from pinned list
+            description: Removes a student from the professor's pinned list
+            operationId: removePinnedStudent
+            parameters:
+                - name: puid
+                  in: path
+                  description: University id of professor
+                  required: true
+                  schema:
+                      type: string
+                      example: 6317f5f08f5025ccd1882972
+                - name: suid
+                  in: path
+                  description: Student's username
+                  required: true
+                  schema:
+                      type: string
+                      example: sxk7286
+components:   
+    schemas:
+        Authentication:
+            type: object
+            properties:
+                email:
+                    type: string
+                    example: Fredrick.Tal@rit.edu
+                password:
+                    type: string
+                    example: test
+            xml:
+                name: order
+        puid:
+            type: string
+            example: 42ad65ac759ccc385
+            xml:
+                name: customer
+        Student:
+            type: object
+            properties:
+                _id:
+                    type: string
+                    example: 63487bf3040a5099e5860f72
+                uid:
+                    type: integer
+                    format: int64
+                    example: 41033822
+                username:
+                    type: string
+                    example: sxk7286
+                first_name:
+                    type: string
+                    example: Stacey
+                last_name:
+                    type: string
+                    example: Keran
+                courses:
+                    type: array
+                    example: ["ISTE 140-1"]
+                email:
+                    type: string
+                    example: sxk7286@rit.edu
+                ip:
+                    type: string
+                    example: 138.255.96.19
+                logs:
+                    type: array
+                    example: []
+        Professor:
+            type: object
+            properties:
+                _id:
+                    type: string
+                    example: 6317f5f08f5025ccd1882972
+                first_name:
+                    type: string
+                    example: Fredrick
+                last_name:
+                    type: string
+                    example: Tal
+                courses:
+                    type: array
+                    example: []
+                email:
+                    type: string
+                    example: Fredrick.Tal@rit.edu
+                password:
+                    type: string
+                    example: test
+                pinned:
+                    type: array
+                    example: ["axl7603", "exn9307"]
+        Notification:
+            type: object
+            properties:
+                username:
+                    type: string
+                    example: mxl4647
+                datetime:
+                    type: string
+                    example: 2022-10-18T17:50:19.210Z
+                result:
+                    type: string
+                    example: Failure
+        SystemMessage:
+            type: object
+            properties:
+                message:
+                    type: string
+                    example: successfully added student

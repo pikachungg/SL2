@@ -20,7 +20,7 @@ export default function StudentFilter(props){ //Add props to data.
                     'Content-Type': 'application/json'
                 },
             }
-    
+
             fetch(endpoint, options)
             .then( res => {
                 if (res == []) {
@@ -31,6 +31,7 @@ export default function StudentFilter(props){ //Add props to data.
                 }
             })
             .then( data => {
+                console.log(data)
                 setStudentList(data)
                 setFilteredStudents(data)
             })
