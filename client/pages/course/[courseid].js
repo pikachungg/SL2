@@ -14,6 +14,36 @@ export default function CoursePage(){
     const router = useRouter()
     const { courseid } = router.query
     const [pinnedStudents, setPinnedStudents] = useState([])
+	const [studentList, setStudentList] = useState([])
+	const [tableData, setTableData] = useState([])
+
+	useEffect(() => {   
+        if (courseid){
+            const endpoint = `http://localhost:8000/students/classid/${courseid}`
+            const options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }
+    
+            fetch(endpoint, options)
+            .then( res => {
+                if (res == []) {
+                    return []
+                }
+                else{
+                    return res.json()
+                }
+            })
+            .then( data => {
+                setStudentList(data)
+				setTableData(transformData(data))
+            })
+        }
+    }, [courseid])
+
+	console.log(tableData) //Delete this later
 
     useEffect(() => {
 		if (courseid){
@@ -35,9 +65,35 @@ export default function CoursePage(){
         }
     }, [courseid])
 
-	const refreshData = () => {
-		router.replace(router.asPath);
-	  }
+	const transformData = (students) => {
+		let newStudentList = []
+		students.forEach( student => {
+			let failureSuccess = countSucccessFailure(student.logs)
+			let newStudent = {
+				"username": student.username,
+				"first_name": student.first_name,
+				"last_name": student.last_name,
+				"failure": failureSuccess[0],
+				"success": failureSuccess[1]
+			}
+			newStudentList.push(newStudent)
+		})
+		return newStudentList
+	}
+
+	const countSucccessFailure = (logs) => {
+		let failure = 0
+		let success = 0
+		logs.forEach( log => {
+			if (log.result === "Failure"){
+				failure += 1
+			}
+			else{
+				success += 1
+			}
+		})
+		return [failure, success]
+	}
 
 	const updateHappened = (studentid) => {
 		if (!pinnedStudents.includes(studentid)){
@@ -48,7 +104,7 @@ export default function CoursePage(){
 		}
 	}
 
-	function arrayRemove(arr, value) { 
+	const arrayRemove = (arr, value) => { 
         return arr.filter(function(ele){ 
             return ele != value; 
         });
@@ -88,7 +144,13 @@ export default function CoursePage(){
 				</div>
            
                 <div className={styles.studenttable}>
-                    <StudentFilter courseid={courseid} pinnedStudents={pinnedStudents} update={updateHappened} removed={removedHappened}/>
+                    <StudentFilter 
+						courseid={courseid} 
+						studentList={studentList} 
+						pinnedStudents={pinnedStudents} 
+						update={updateHappened} 
+						removed={removedHappened}
+					/>
                 </div>
 				<div className={styles.alerts}>
 					{/* this is for alert box */}
