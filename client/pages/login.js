@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
-import { Snackbar } from "@mui/material";
+import Toast from '../components/Toast'
 import { useState } from "react";
 import styles from '../styles/Login.module.css'
 import { useRouter } from 'next/router'
 
 export default function Login() {
   const router = useRouter()
-  const [loginError, setLoginError] = useState(false)
+  const [loginError, setLoginError] = useState("hidden")
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -32,8 +32,11 @@ export default function Login() {
       router.replace('/')
     }
     else{
-	  setLoginError(true)
       console.log("Wrong username or password.")
+	  setLoginError("visible")
+	  const timer = setTimeout(() => {
+		  setLoginError("hidden")
+  	  }, 5000);
     }
     
   }
@@ -58,20 +61,7 @@ export default function Login() {
                   <input placeholder="| enter password" type="password" id="password" name="password"/>
                 </div>
 	  			<button type='submit'>Login</button>
-				<Snackbar
-	  				open={loginError}
-	  				autoHideDuration={5000}
-	  				onClose={
-						(event, reason) => {
-							if(reason === "clickaway") {
-								return
-							}
-							setLoginError(false)
-						}
-					}
-	  				message="Invalid username or password."
-	  			>
-	            </Snackbar>
+	  			<Toast status={loginError} closeHandler={setLoginError}/>
                 <h3>Need assistance? <br></br>
                 Please contact the ITS Service Desk at Phone Number 585-475-5000 or visit <a href="help.rit.edu">help.rit.edu.</a></h3>
               </form>
