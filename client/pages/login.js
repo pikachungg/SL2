@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 
 export default function Login() {
   const router = useRouter()
-  const [loginError, setLoginError] = useState("hidden")
+  const [toastOpacity, setToastOpacity] = useState(0)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -33,9 +33,9 @@ export default function Login() {
     }
     else{
       console.log("Wrong username or password.")
-	  setLoginError("visible")
+	  setToastOpacity(1)
 	  const timer = setTimeout(() => {
-		  setLoginError("hidden")
+		  setToastOpacity(0)
   	  }, 5000);
     }
     
@@ -61,7 +61,7 @@ export default function Login() {
                   <input placeholder="| enter password" type="password" id="password" name="password"/>
                 </div>
 	  			<button type='submit'>Login</button>
-	  			<Toast status={loginError} closeHandler={setLoginError}/>
+	  			<Toast opacity={toastOpacity} handleClose={setToastOpacity}/>
                 <h3>Need assistance? <br></br>
                 Please contact the ITS Service Desk at Phone Number 585-475-5000 or visit <a href="help.rit.edu">help.rit.edu.</a></h3>
               </form>

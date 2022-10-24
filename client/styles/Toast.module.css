@@ -1,0 +1,13 @@
+.toast {
+	background-color: #b71c1c;
+	color: white;
+	padding: .5rem;
+	border-radius: 0.5rem;
+	z-index: 9999;
+	position: absolute;
+	display: grid;
+	grid-template-columns: 90% 10%;
+	align-items: center;
+	filter: drop-shadow(1px 1px 0.5rem #111);
+	transition: opacity 0.2s ease-in-out;
+}
