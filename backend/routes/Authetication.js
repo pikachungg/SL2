@@ -12,7 +12,7 @@ const login = router.post('/login' , (req, res) => {
                 res.status(200).send(user._id)
             }
             else{
-                res.status(404).send({'message': "Try again."})
+                res.status(404).send({'message': "User not found try again."})
             }
         }
         catch{

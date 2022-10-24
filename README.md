@@ -5,10 +5,14 @@
 1. **backend**
 
 This folder contains the API code.
+- Express.js App http://localhost:8000
+- MongoDB Integration
+- Swagger UI Documentation
 
 2. **client**
 
 This folder contains the frontend code.
+- Next.js App http://localhost:3000/
 
 ## Requirements
 

@@ -12,12 +12,6 @@
     box-shadow: 0 2.5px 2.5px 2.5px rgb(219, 219, 219);
 
 }
-/*
-.insidecontainer{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-}*/
 
 .title{
     display: flex;

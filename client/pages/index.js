@@ -120,11 +120,6 @@ export default function Home() {
 						))}
 					</div>
 					
-					{/* this is for the optional digest chart area
-					<div className={styles.chartcontainer}>
-						<img src="./images/weekly.png"></img>
-						<h3>* This is an image for display purposes until completed development, pending approval at MVP Beta Gate Review.</h3>
-					</div>*/}
 				</div>
 
 				<div className={styles.alerts}>
