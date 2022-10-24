@@ -161,8 +161,12 @@ export default function BarChart(){
 
     //Controlling of the dom???
     return(
-        <div className={styles.BarChart}>
-            <svg ref={svgRef}></svg>
+        <div>
+            <button onclick="update(data1)">Variable 1</button>
+            <button onclick="update(data2)">Variable 2</button>
+            <div className={styles.BarChart}>
+                <svg ref={svgRef}></svg>
+            </div>
         </div>
     )
 }

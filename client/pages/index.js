@@ -8,7 +8,6 @@ import Head from 'next/head'
 import { SiHomeassistant } from "react-icons/si";
 import { IconContext } from "react-icons";
 import BarChart from "../components/BarChart";
-import Testing_BarChart from "../components/Testing_BarChart";
 
 export default function Home() {
 	const router = useRouter();
