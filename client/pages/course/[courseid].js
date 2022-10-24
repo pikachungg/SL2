@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head'
 import { HiChartSquareBar } from "react-icons/hi";
 import { IconContext } from "react-icons";
+import BarChart from "../../components/BarChart"
 
 export default function CoursePage(){
 
@@ -125,11 +126,6 @@ export default function CoursePage(){
 				<div className={styles.chart}>
 					<div className={styles.courseheader}>
 						<button className={styles.backbutton} onClick={() => router.back()}>Back</button>
-						{/* <img
-							src="../images/courselogo.png"
-							alt="Course Analytics Logo"
-							className={styles.courseLogo}
-						/> */}
 						<IconContext.Provider
 							value={{ color: "#FF6F00", size: "40px" }}>
 							<HiChartSquareBar />
@@ -138,7 +134,8 @@ export default function CoursePage(){
 					</div>
                     <hr></hr>
 					<div className={styles.chartcontainer}>
-						<img src="../images/scr1.jpg"></img>
+						{/* <img src="../images/scr1.jpg"></img> */}
+						<BarChart studentList={tableData}/>
 						<h3>* This is an image for display purposes until completed development, pending approval at MVP Beta Gate Review.</h3>
 					</div>
 				</div>
