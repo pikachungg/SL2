@@ -10,34 +10,11 @@ export default function StudentFilter(props){ //Add props to data.
     const [studentList, setStudentList] = useState([])
     const [filteredStudents, setFilteredStudents] = useState([])
 
-    useEffect(() => {   
-        
-        if (props.courseid){
-            const endpoint = `http://localhost:8000/students/classid/${props.courseid}`
-            const options = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            }
-    
-            fetch(endpoint, options)
-            .then( res => {
-                if (res == []) {
-                    return []
-                }
-                else{
-                    return res.json()
-                }
-            })
-            .then( data => {
-                setStudentList(data)
-                setFilteredStudents(data)
-            })
-        }
+    useEffect( () => {
+        setStudentList(props.studentList)
+        setFilteredStudents(props.studentList)
+    }, [props.studentList])
 
-    }, [props.courseid])
-    
     if (!props.courseid) return 'loading'
 
     const calculateFailedLogins = (logs) => {
