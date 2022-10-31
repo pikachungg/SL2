@@ -41,7 +41,7 @@ export default function BarChart(props) {
 		data.sort(function (a, b) {
 			return b["failure"] - a["failure"];
 		});
-
+		
 		//Setting the scaling
 		// Add X axis
 		console.log(data);
