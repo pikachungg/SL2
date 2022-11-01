@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "(cd backend && npm install && npm start) & (cd client && npm install --save && npm run dev)",
-    "windows": "npm install -D concurrent ly && concurrently npm:watch:*",
+    "windows": "npm install -D concurrently && concurrently npm:watch:*",
     "watch:backend": "cd backend && npm install && npm start ",
     "watch:frontend": "cd client && npm install --save && npm run dev"
   },

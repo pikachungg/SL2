@@ -1,7 +1,65 @@
 .BarChart{
-    width: 800px;
+    display: block;
+    width: 930px;
     margin-bottom: 200px;
-    overflow-y: hidden;
     overflow-x: scroll;
-    overflow-x: visible;
+}
+
+.sortBy{
+    display: inline-flex;
+}
+
+.sortLabel{
+    white-space: nowrap;
+    display: inline-flex;
+    margin:5px;
+}
+
+.successButton{
+    background-color: white;
+    color: black;
+    border: 2px solid #F76902;
+    text-decoration: none;
+    padding: 0px 10px;
+    border-radius: 20px;
+    vertical-align: middle;
+    margin:5px;
+    margin-left: 2%;
+    transition-duration: 0.4s;
+}
+
+.failureButton{
+    background-color: white;
+    color: black;
+    border: 2px solid #F76902;
+    text-decoration: none;
+    padding: 0px 10px;
+    border-radius: 20px;
+    vertical-align: middle;
+    margin:5px;
+    margin-left: 2%;
+    transition-duration: 0.4s;
+}
+
+.successButton:hover, .failureButton:hover{
+    background-color: #F76902;
+    color: white;
+    cursor: pointer;
+}
+
+.tooltipArea{
+    position: absolute;
+    font-size: 10px;
+    font-weight: bold;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.171);
+    border: 1.8px solid #462616;
+    border-radius: 10px;
+    background-color: antiquewhite;
+    padding: 5px;
+    opacity: 90%;
+    visibility: hidden;
+}
+
+.username{
+    padding-top: 2px;
 }

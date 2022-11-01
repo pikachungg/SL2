@@ -9,8 +9,11 @@ import Head from 'next/head'
 
 export default function StudentPage(){
     const router = useRouter()
+
     const { studentid } = router.query
+
     const [student, setStudent] = useState({})
+    const [graphData, setGraphData] = useState({})
 
     useEffect(() => {
 		if (localStorage.getItem("user_sl2")) {
@@ -25,6 +28,7 @@ export default function StudentPage(){
             .then( res => res.json())
             .then( data => {
                 setStudent(data)
+                setGraphData(transformData(data.logs))
             });
         }
         else{
@@ -32,7 +36,40 @@ export default function StudentPage(){
         }
     }, [studentid])
     
+    const transformData  = (data) => {
+        let newData = {}
+        for (const entry of data){
+            let date = new Date(entry.datetime)
+            if (date.toLocaleDateString() in newData){
+                if (entry.result === "success"){
+                    newData[date.toLocaleDateString()].success += 1
+                }
+                else{
+                    newData[date.toLocaleDateString()].failure += 1
+                }
+            }
+            else{
+                let tempSuccess = 0;
+                let tempFailure = 0;
+                if (entry.result === "success"){
+                    tempSuccess += 1
+                }
+                else{
+                    tempFailure += 1
+                }
+                newData[date.toLocaleDateString()] = {
+                    success: tempSuccess,
+                    failure: tempFailure
+                }
+            }
+        }
+        return newData
+    }
+
+    console.log(graphData)
+
     if (!studentid) return 'loading'
+
     return (
             <div className={styles.container}>
                 <Head>
