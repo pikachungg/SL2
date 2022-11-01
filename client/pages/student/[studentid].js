@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import styles from "../../styles/Students.module.css"
 import StudentLoginHistory from "../../components/StudentLoginHistory"
 import Head from 'next/head'
+import StudentLineChart from "../../components/StudentLineChart";
 
 
 export default function StudentPage(){
@@ -89,6 +90,8 @@ export default function StudentPage(){
                         </div>
                         <hr></hr>
                     </div>
+
+                    <StudentLineChart logsList={graphData}/>
               
                     <div className={styles.loginhistory}>
                         <StudentLoginHistory studentid={studentid}/>
