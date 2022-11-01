@@ -9,14 +9,14 @@ export default function StudentLineChart(props) {
         setData(props.logsList)
     }, [props.logsList])
 
-	function dateStringToDate(str) {
-		let split = str.split("/")
-		return new Date(split[2] + "-" + split[0] + "-" + split[1]);
-	}
+	//function dateStringToDate(str) {
+	//	let split = str.split("/")
+	//	return new Date(split[2] + "-" + split[0] + "-" + split[1]);
+	//}
 
-	function dateToDateString(d) {
-		return (d.getMonth() + 1) + "/" + d.getDate()  + "/" + d.getFullYear()
-	}
+	//function dateToDateString(d) {
+	//	return (d.getMonth() + 1) + "/" + d.getDate()  + "/" + d.getFullYear()
+	//}
 
     const svgRef = useRef(); //This will be needed when create the svg for the chart
 	useEffect(() => {
@@ -28,8 +28,8 @@ export default function StudentLineChart(props) {
 			// last item in the sorted logs is the most recent, convert it to date
 			// MM/DD/YYYY
 			let temp = sortinglogs[sortinglogs.length - 1][0]
-			//let split = temp.split("/")
-			let latestDate = dateStringToDate(temp)
+			let split = temp.split("/")
+			//let latestDate = dateStringToDate(temp)
 			let weekRange = []
 			for(let i = 7 /*seven days in a week*/; i > 0; i--) {
 				let newDate = new Date(latestDate)
