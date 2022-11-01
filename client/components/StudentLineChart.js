@@ -9,13 +9,40 @@ export default function StudentLineChart(props) {
         setData(props.logsList)
     }, [props.logsList])
 
+	function dateStringToDate(str) {
+		let split = str.split("/")
+		return new Date(split[2] + "-" + split[0] + "-" + split[1]);
+	}
+
+	function dateToDateString(d) {
+		return (d.getMonth() + 1) + "/" + d.getDate()  + "/" + d.getFullYear()
+	}
+
     const svgRef = useRef(); //This will be needed when create the svg for the chart
 	useEffect(() => {
         let sortinglogs = Object.entries(data).sort(function(a, b) {
             return new Date(b.datetime) - new Date(a.datetime)
         })
-        console.log('sortinglogs ',sortinglogs);
-        console.log(Object.keys(sortinglogs));
+
+		if(Object.keys(sortinglogs).length !== 0) {
+			// last item in the sorted logs is the most recent, convert it to date
+			// MM/DD/YYYY
+			let temp = sortinglogs[sortinglogs.length - 1][0]
+			//let split = temp.split("/")
+			let latestDate = dateStringToDate(temp)
+			let weekRange = []
+			for(let i = 7 /*seven days in a week*/; i > 0; i--) {
+				let newDate = new Date(latestDate)
+				newDate.setDate(newDate.getDate() - i)
+				weekRange.push(
+					{
+						date: dateToDateString(newDate)
+						, successes: 0
+						, failures: 0
+					}
+				)
+			}
+		}
 
         // for (let i = 0; i <)
         // const dates =  [];
@@ -58,14 +85,14 @@ export default function StudentLineChart(props) {
                 "translate(" + margin.left + "," + margin.top + ")",
             );
         
-        console.log("-----------",Object.entries(data));
+        //console.log("-----------",Object.entries(data));
 
         var dates = []
         for (var i = 0; i < Object.keys(data).length; i++) {
             dates.push(Object.entries(data)[i][0]);
-            console.log('only date', Object.entries(data)[i][0]);
+            //console.log('only date', Object.entries(data)[i][0]);
         }
-        console.log('dataaaaa', dates);
+        //console.log('dataaaaa', dates);
 
         // Setting the scaling
 		// Add X axis
