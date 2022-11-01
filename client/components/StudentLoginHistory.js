@@ -1,9 +1,6 @@
 import styles from '../styles/StudentFilter.module.css'
 import { useEffect, useState } from "react"
 
-import { RiErrorWarningFill } from 'react-icons/ri'
-import { IconContext } from "react-icons";
-
 export default function StudentLoginHistory(props){
     const [student, setStudent] = useState({})
     const [sortedLogs, setSortedLogs] = useState([])
@@ -29,7 +26,6 @@ export default function StudentLoginHistory(props){
 
     }, [props.studentid])
 
-    console.log(sortedLogs)
         
     return (
         <div className={styles.containerhistory}>
