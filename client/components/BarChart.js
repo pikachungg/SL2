@@ -78,23 +78,7 @@ export default function BarChart(props) {
 
 		console.log("stackedData ", stackedData);
 
-		var tooltip = d3.select('.tooltipArea').style("opacity", 0);
-		var tipInfo = d3.select('.tipInfo');
-
-		// const mouseout = (event, d) => {
-		// 	tooltip.style('opacity', 0);
-		// }
-
-		// const mousemove = (event, d) => {
-		// 	const text = d3.select('.tooltipArea')
-		// 					.style("left", (event.pageX)+"px")
-		// 					.style("top", (event.pageY)+"px");
-		// 	text.text(`Sales were ${d.username} in ${d.username}`);
-		// 	// const [x, y] = d3.pointer(event);
-
-		// 	// tooltip
-		// 	// .attr('transform', `translate(${x}, ${y})`);
-		// };
+		var tipInfo = d3.select('#tipInfo');
 
 		// Show the bars
 		svg.append("g")
@@ -121,16 +105,17 @@ export default function BarChart(props) {
 			})
 			.attr("width", x.bandwidth() + 10)
 			.on("mouseover", function mouseover(event, d) {
-				tooltip.style("opacity", 1)
-						.style("left", (event.pageX-800)+"px")
-						.style("top", (event.pageY-2390)+"px");
-				console.log("hiiiiiiio", event.pageX);
-				console.log("hiiiiiiio", event.pageY-2390);
-				console.log("my username", d.data.username);
-				tipInfo.select('p').html('Student user name:' + d.data.username);
+				d3.select('#tooltipArea').style("visibility", "visible")
+					.style("left", event.pageX+"px")
+					.style("top", event.pageY+ "px");
+				tipInfo.select('#name').html('Name: ' + d.data.first_name + ' '+ d.data.last_name);
+				tipInfo.select('#username').html('Username: ' + d.data.username);
+				tipInfo.select('#success').html('Total number of success logins: ' + d.data.success);
+				tipInfo.select('#failure').html('Total number of failure logins: ' + d.data.failure);
 			})
-			// .on("mousemove", mousemove)
-			// .on("mouseout", mouseout)
+			.on("mouseout", function mouseout(event, d){
+				return d3.select('#tooltipArea').style("visibility", "hidden");
+			})
 			.transition()
 			.duration(2000)
 			.attr("height", function (d) {
@@ -142,24 +127,6 @@ export default function BarChart(props) {
 
 		svg.exit().remove();
 	}
-
-	// var tooltip = d3.select('#tooltipArea')
-	// 				.style('opacity', 0);
-
-	// var tooltip = d3.select(".tooltipArea")
-	// 				.append("div")
-	// 				.style("position", "absolute")
-	// 				.style("z-index", "10")
-	// 				.style("visibility", "hidden")
-	// 				.style("background", "#000")
-	// 				.text("a simple tooltip")
-	// 				.style('opacity', 0);
-
-	// let mouseover = (event, d) => {
-    //     tooltip.style("opacity", 1)
-	// 		   .attr('class', 'tooltip');
-	// 	console.log("hiiiiiiio");
-    // };
 
 	function updateSuccessButton(){
 		data.sort(function (a, b) {
@@ -188,8 +155,11 @@ export default function BarChart(props) {
 				<svg ref={svgRef}></svg>
 			</div>
 			<div className={styles.tooltipArea} id="tooltipArea">
-				<div className="tipInfo">
-					<p></p>
+				<div className={styles.tipInfo} id="tipInfo">
+					<p className={styles.username} id="name"></p>
+					<p className={styles.username} id="username"></p>
+					<p className={styles.username} id="success"></p>
+					<p className={styles.username} id="failure"></p>
 				</div>
 			</div>
 		</div>
