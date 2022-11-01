@@ -28,7 +28,7 @@ export default function BarChart(props) {
 		//Setting up the svg container
 		var margin = { top: 10, right: 30, bottom: 20, left: 50 },
 			width = 680 - margin.left - margin.right,
-			height = 280 - margin.top - margin.bottom;
+			height = 260 - margin.top - margin.bottom;
 		svg = d3
 			.select("#bar")
 			.append('svg')
@@ -105,7 +105,8 @@ export default function BarChart(props) {
 			})
 			.attr("width", x.bandwidth() + 10)
 			.on("mouseover", function mouseover(event, d) {
-				d3.select('#tooltipArea').style("visibility", "visible")
+				d3.select('#tooltipArea')
+					.style("visibility", "visible")
 					.style("left", event.pageX+"px")
 					.style("top", event.pageY+ "px");
 				tipInfo.select('#name').html('Name: ' + d.data.first_name + ' '+ d.data.last_name);
