@@ -47,17 +47,19 @@ export default function StudentLineChart(props) {
 
 				if(dates.has(dateStr)) {
 					weekRange.push(
-						[
-							dateStr
-							, objLogs[dates.get(dateStr)].stats
-						]
+						{
+							date: dateStr
+							, success: objLogs[dates.get(dateStr)].stats.success
+							, failure: objLogs[dates.get(dateStr)].stats.failure
+						}
 					)
 				} else {
 					weekRange.push(
-						[
-							dateToDateString(newDate)
-							, { success: 0 , failure: 0 }
-						]
+						{
+							date: dateStr
+							, success: 0
+							, failure: 0
+						}
 					)
 				}
 			}
