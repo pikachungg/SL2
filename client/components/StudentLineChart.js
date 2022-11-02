@@ -21,6 +21,7 @@ export default function StudentLineChart(props) {
 
     const svgRef = useRef(); //This will be needed when create the svg for the chart
 	useEffect(() => {
+
         let sortinglogs = Object.entries(data).sort(function(a, b) {
             return new Date(b.datetime) - new Date(a.datetime)
         })
