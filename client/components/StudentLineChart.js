@@ -26,6 +26,8 @@ export default function StudentLineChart(props) {
             return new Date(b.datetime) - new Date(a.datetime)
         })
 
+        console.log(" //////",sortinglogs);
+
 		let weekRange = []
 
 		if(Object.keys(sortinglogs).length !== 0) {
@@ -64,29 +66,10 @@ export default function StudentLineChart(props) {
 				}
 			}
 		}
-
-        // for (let i = 0; i <)
-        // const dates =  [];
-        // const NUM_OF_DAYS = 7; // get last 7 dates.
-
-        // for (let i  = 0; i < NUM_OF_DAYS; i++){
-        //     let date = moment();
-        //     date.subtract(i, 'day');
-        //     dates.push(date.format('MM/DD/YYYY'));
-        // }
-
-        // let finalResult = {};
-        // dates.reverse().forEach(date => {
-        //     if(!myRes.hasOwnProperty(date)) {
-        //         finalResult[date] = 0;
-        //     } else {
-        //         finalResult[date] = myRes[date];
-        //     }
-        // });
 		drawLineChart(weekRange);
 	}, [data]);
 	
-    function drawLineChart(){
+    function drawLineChart(weekRange){
         var svg;
         svg = d3.select("#bar").select('svg').remove();
         //Setting up the svg container
@@ -104,55 +87,65 @@ export default function StudentLineChart(props) {
                 "transform",
                 "translate(" + margin.left + "," + margin.top + ")",
             );
-        
-        //console.log("-----------",Object.entries(data));
-
-        var dates = []
-        for (var i = 0; i < Object.keys(data).length; i++) {
-            dates.push(Object.entries(data)[i][0]);
-            //console.log('only date', Object.entries(data)[i][0]);
-        }
-        //console.log('dataaaaa', dates);
 
         // Setting the scaling
 		// Add X axis
 		var x = d3
 			.scaleBand()
-			.domain(dates)
-			.range([0, width]);
+			.domain(weekRange.map((d) => d.date))
+			.range([0, width])
+            .paddingOuter(1)
+			.paddingInner(1);
 		svg.append("g")
 			.attr("transform", "translate(0," + height + ")")
 			.call(d3.axisBottom(x));
-        
+
+        var maxHeight = 0;
+        var maxFailure = Math.max(...weekRange.map((d) => d.failure));
+        var maxSuccess = Math.max(...weekRange.map((d) => d.success));
+        if (maxFailure > maxSuccess){
+            maxHeight = maxFailure;
+        } else if (maxFailure < maxSuccess){
+            maxHeight = maxSuccess;
+        } else {
+            maxHeight = maxSuccess;
+        }
+
+        // console.log("Failure",Math.max(...weekRange.map((d) => d.failure )));
+        // console.log("Succes",Math.max(...weekRange.map((d) => d.success )));
+
         // Add Y axis
 		var y = d3
             .scaleLinear()
-            .domain([0, height-260])
+            .domain([0, maxHeight])
             .range([height, 0]);
         svg.append("g").call(d3.axisLeft(y));
 
-        // Creat the color pallete for the bar chart
-		let color = d3
-            .scaleOrdinal()
-            .domain(["success", "failure"])
-            .range(["#64C839", "#FF2A2A"]);
+        // Add the line
+        svg.append("path")
+            .datum(weekRange)
+            .attr("fill", "none")
+            .attr("stroke", "#64C839")
+            .attr("stroke-width", 1.5)
+            .transition()
+            .duration(2000)
+            .attr("d", d3.line()
+            .x(function(d) { return x(d.date) })
+            .y(function(d) { return y(d.success) })
+        )
 
-        // Draw the line
-        // svg
-        // .selectAll(".line")
-        // .data(data)
-        // .enter()
-        // .append("path")
-        //     .attr("fill", "none")
-        //     .attr("stroke", function(d){ console.log("here", d); return color(d.key) })
-        //     .attr("stroke-width", 1.5)
-        //     .attr("d", function(d){
-        //         console.log("here", d);
-        //     return d3.line()
-        //         .x(function(d) { console.log("pppppps",x(Object.entries(d)[1]['failure'])); return x(Object.entries(d)[1]['failure']); })
-        //         .y(function(d) { return y(Object.entries(d)[1]['success']);})
-        //         (d.values)
-        //     })
+        // Add the line
+        svg.append("path")
+            .datum(weekRange)
+            .attr("fill", "none")
+            .attr("stroke", "#FF2A2A")
+            .attr("stroke-width", 1.5)
+            .transition()
+            .duration(2000)
+            .attr("d", d3.line()
+            .x(function(d) { return x(d.date) })
+            .y(function(d) { return y(d.failure) })
+        )
    }
 
     return (
