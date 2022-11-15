@@ -49,13 +49,13 @@
 
 .tooltipArea{
     position: absolute;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.171);
-    border: 1.8px solid #462616;
+    border: none;
     border-radius: 10px;
-    background-color: antiquewhite;
-    padding: 5px;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
     opacity: 90%;
     visibility: hidden;
 }

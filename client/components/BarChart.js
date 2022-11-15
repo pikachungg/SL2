@@ -148,7 +148,7 @@ export default function BarChart(props) {
 	return (
 		<div>
 			<div className={styles.sortBy}>
-				<div className={styles.sortLabel}>Sort by:</div>
+				<div className={styles.sortLabel}><b>Number of logins by students in this course this week</b>&nbsp; |&nbsp; Sort by login type:</div>
 				<button className={styles.successButton} onClick={() => updateSuccessButton()}>Success</button>
 				<button className={styles.failureButton} onClick={() => updateFailureButton()}>Failure</button>
 			</div>
