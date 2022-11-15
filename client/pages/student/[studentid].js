@@ -89,9 +89,8 @@ export default function StudentPage(){
                             <h1>Analytics for {student.first_name} {student.last_name} - {student.email}</h1>
                         </div>
                         <hr></hr>
+                        <StudentLineChart logsList={graphData}/>
                     </div>
-
-                    <StudentLineChart logsList={graphData}/>
               
                     <div className={styles.loginhistory}>
                         <StudentLoginHistory studentid={studentid}/>

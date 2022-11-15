@@ -19,6 +19,11 @@ export default function StudentLineChart(props) {
 		return (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear()
 	}
 
+    function getdateMonthDay(str) {
+		let split = str.split("/")
+		return split[0] + "/" + split[1];
+	}
+
     const svgRef = useRef(); //This will be needed when create the svg for the chart
 	useEffect(() => {
 
@@ -50,7 +55,7 @@ export default function StudentLineChart(props) {
 				if(dates.has(dateStr)) {
 					weekRange.push(
 						{
-							date: dateStr
+							date: getdateMonthDay(dateStr)
 							, success: objLogs[dates.get(dateStr)].stats.success
 							, failure: objLogs[dates.get(dateStr)].stats.failure
 						}
@@ -58,7 +63,7 @@ export default function StudentLineChart(props) {
 				} else {
 					weekRange.push(
 						{
-							date: dateStr
+							date: getdateMonthDay(dateStr)
 							, success: 0
 							, failure: 0
 						}
@@ -74,8 +79,8 @@ export default function StudentLineChart(props) {
         svg = d3.select("#bar").select('svg').remove();
         //Setting up the svg container
 		var margin = { top: 10, right: 30, bottom: 20, left: 50 },
-        width = 680 - margin.left - margin.right,
-        height = 360 - margin.top - margin.bottom;
+        width = 760 - margin.left - margin.right,
+        height = 440 - margin.top - margin.bottom;
         svg = d3
             .select("#bar")
             .append('svg')
@@ -111,9 +116,6 @@ export default function StudentLineChart(props) {
             maxHeight = maxSuccess;
         }
 
-        // console.log("Failure",Math.max(...weekRange.map((d) => d.failure )));
-        // console.log("Succes",Math.max(...weekRange.map((d) => d.success )));
-
         // Add Y axis
 		var y = d3
             .scaleLinear()
@@ -126,27 +128,44 @@ export default function StudentLineChart(props) {
             .datum(weekRange)
             .attr("fill", "none")
             .attr("stroke", "#64C839")
-            .attr("stroke-width", 1.5)
-            .transition()
-            .duration(2000)
+            .attr("stroke-width", 3)
             .attr("d", d3.line()
             .x(function(d) { return x(d.date) })
-            .y(function(d) { return y(d.success) })
-        )
+            .y(function(d) { return y(d.success) }));
+
+        // Add the circles
+        svg.selectAll("myCircles")
+            .data(weekRange)
+            .enter()
+            .append("circle")
+            .attr("fill", "#64C839")
+            .attr("stroke", "none")
+            .attr("cx", function(d) { return x(d.date) })
+            .attr("cy", function(d) { return y(d.success) })
+            .attr("r", 4)
 
         // Add the line
         svg.append("path")
             .datum(weekRange)
             .attr("fill", "none")
             .attr("stroke", "#FF2A2A")
-            .attr("stroke-width", 1.5)
-            .transition()
-            .duration(2000)
+            .attr("stroke-width", 3)
             .attr("d", d3.line()
             .x(function(d) { return x(d.date) })
             .y(function(d) { return y(d.failure) })
         )
-   }
+
+        // Add the circles
+        svg.selectAll("myCircles")
+            .data(weekRange)
+            .enter()
+            .append("circle")
+            .attr("fill", "#FF2A2A")
+            .attr("stroke", "none")
+            .attr("cx", function(d) { return x(d.date) })
+            .attr("cy", function(d) { return y(d.failure) })
+            .attr("r", 5)
+    }
 
     return (
         <div>
