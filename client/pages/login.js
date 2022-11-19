@@ -1,10 +1,13 @@
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
+import Toast from '../components/Toast'
+import { useState } from "react";
 import styles from '../styles/Login.module.css'
 import { useRouter } from 'next/router'
 
 export default function Login() {
   const router = useRouter()
+  const [toastOpacity, setToastOpacity] = useState(0)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -29,8 +32,11 @@ export default function Login() {
       router.replace('/')
     }
     else{
-      //Handler error here
-      console.log("Wrong username")
+      console.log("Wrong username or password.")
+	  setToastOpacity(1)
+	  const timer = setTimeout(() => {
+		  setToastOpacity(0)
+  	  }, 5000);
     }
     
   }
@@ -54,7 +60,8 @@ export default function Login() {
                   <label for="email">Password</label><br></br>
                   <input placeholder="| enter password" type="password" id="password" name="password"/>
                 </div>
-                <button type='submit'>Login</button>
+	  			<button type='submit'>Login</button>
+	  			<Toast opacity={toastOpacity} handleClose={setToastOpacity}/>
                 <h3>Need assistance? <br></br>
                 Please contact the ITS Service Desk at Phone Number 585-475-5000 or visit <a href="help.rit.edu">help.rit.edu.</a></h3>
               </form>

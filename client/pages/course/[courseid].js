@@ -9,6 +9,7 @@ import Head from 'next/head'
 import { HiChartSquareBar } from "react-icons/hi";
 import { IconContext } from "react-icons";
 import BarChart from "../../components/BarChart"
+import StudentLineChart from "../../components/StudentLineChart"
 
 export default function CoursePage(){
 
