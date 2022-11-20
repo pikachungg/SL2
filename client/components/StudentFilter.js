@@ -17,27 +17,34 @@ export default function StudentFilter(props){ //Add props to data.
 
     if (!props.courseid) return 'loading'
 
-    const calculateFailedLogins = (logs) => {
-        let count = 0
+    const calculateLogins = (logs) => {
+        let failCount = 0
+		let totalCount = logs.length
         for (let i = 0; i < logs.length; i++){
-            if (logs[i].result == "Failure") 
-            count += 1
+            if (logs[i].result == "Failure") {
+            	failCount += 1
+			}
         }
-        return (<p>{count} {count > 5 ? <IconContext.Provider value={{ color: 'red'}}><RiErrorWarningFill/></IconContext.Provider> : null}</p>)
+        return (<p>{failCount} {(failCount > 5 || totalCount == 0) ? <IconContext.Provider value={{ color: 'red'}}><RiErrorWarningFill/></IconContext.Provider> : null}</p>)
     }
 
     const getLastLogin = (logs) => {
-        let successes = []
+		if (logs.length == 0) {
+			return <p>No Login Attempts</p>
+		}
+
+        let failures = []
         for (let i = 0; i < logs.length; i++){
-            if (logs[i].result == "Failure")
-            successes.push(logs[i])
+            if (logs[i].result == "Failure") {
+            	failures.push(logs[i])
+			}
         }
-        if (successes.length > 0){
+        if (failures.length > 0){
             //Change this for different datetime format
-            let date = new Date(successes.slice(-1)[0].datetime)
+            let date = new Date(failures.slice(-1)[0].datetime)
             return <p>{date.toDateString()}, {date.toLocaleTimeString("en-US")}</p>
         }
-        else{
+        else {
             return <p>No Failed Logins</p>
         }
     }
@@ -111,7 +118,7 @@ export default function StudentFilter(props){ //Add props to data.
                                 <td className={styles.tablecolumnspin}><input type="checkbox" onChange={ () => pinStudent(student.username)} checked={determinePinned(student.username)}/></td>
                                 <td className={styles.tablecolumns + " " + styles.link}><Link href={`/student/${student.username}`}><b>{student.first_name} {student.last_name}</b></Link></td>
                                 <td className={styles.tablecolumns}>{student.email.split('@')[0]}</td>
-                                <td className={styles.tablecolumns}>{calculateFailedLogins(student.logs)}</td>
+                                <td className={styles.tablecolumns}>{calculateLogins(student.logs)}</td>
                                 <td className={styles.tablecolumns}>{getLastLogin(student.logs)}</td>
                             </tr>
                         ))
