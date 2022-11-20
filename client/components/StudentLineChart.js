@@ -31,8 +31,6 @@ export default function StudentLineChart(props) {
             return new Date(b.datetime) - new Date(a.datetime)
         })
 
-        console.log(" //////",sortinglogs);
-
 		let weekRange = []
 
 		if(Object.keys(sortinglogs).length !== 0) {
@@ -72,6 +70,7 @@ export default function StudentLineChart(props) {
 			}
 		}
 		drawLineChart(weekRange);
+        console.log("weekRange",weekRange);
 	}, [data]);
 	
     function drawLineChart(weekRange){
@@ -116,12 +115,17 @@ export default function StudentLineChart(props) {
             maxHeight = maxSuccess;
         }
 
+        let yrange = [];
+        for (var i =0; i <= maxHeight; i++){
+            yrange.push(i)
+        }
+
         // Add Y axis
 		var y = d3
             .scaleLinear()
             .domain([0, maxHeight])
             .range([height, 0]);
-        svg.append("g").call(d3.axisLeft(y));
+        svg.append("g").call(d3.axisLeft(y).tickValues(yrange).tickFormat((d,i) => yrange[i]));
 
         // Add the line
         svg.append("path")
