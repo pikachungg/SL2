@@ -7,7 +7,7 @@ export default function StudentPinCard(props){
     const [student, setStudent] = useState({})
 
     useEffect( () => {
-        const endpoint = `http://localhost:8000/students/id/${props.uid}`
+        const endpoint = `${process.env.NEXT_PUBLIC_API_ROUTE}/students/id/${props.uid}`
         const options = {
           method: 'GET',
           headers: {

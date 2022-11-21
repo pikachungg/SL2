@@ -20,7 +20,7 @@ export default function CoursePage(){
 
 	useEffect(() => {   
         if (courseid){
-            const endpoint = `http://localhost:8000/students/classid/${courseid}`
+            const endpoint = `${process.env.NEXT_PUBLIC_API_ROUTE}/students/classid/${courseid}`
             const options = {
                 method: 'GET',
                 headers: {

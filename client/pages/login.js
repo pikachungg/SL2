@@ -13,7 +13,8 @@ export default function Login() {
       password: e.target.password.value
     }
     const JSONdata = JSON.stringify(data)
-    const endpoint = 'http://localhost:8000/login'
+
+    const endpoint = `${process.env.NEXT_PUBLIC_API_ROUTE}/login`
     const options = {
       method: 'POST',
       headers: {

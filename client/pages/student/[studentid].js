@@ -17,7 +17,7 @@ export default function StudentPage(){
 
     useEffect(() => {
 		if (localStorage.getItem("user_sl2")) {
-            const endpoint = `http://localhost:8000/students/id/${studentid}`
+            const endpoint = `${process.env.NEXT_PUBLIC_API_ROUTE}/students/id/${studentid}`
 			const options = {
 				method: "GET",
 				headers: {

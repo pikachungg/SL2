@@ -58,7 +58,7 @@ export default function StudentFilter(props){ //Add props to data.
 
     const pinStudent = (studentid) => {
         if (props.pinnedStudents.includes(studentid)){
-            const endpoint = `http://localhost:8000/professors/pinned?puid=${localStorage.getItem(
+            const endpoint = `${process.env.NEXT_PUBLIC_API_ROUTE}/professors/pinned?puid=${localStorage.getItem(
                 "user_sl2",
             )}&suid=${studentid}`;
             const options = {
@@ -72,7 +72,7 @@ export default function StudentFilter(props){ //Add props to data.
         }
         else{
             props.update(studentid)
-            const endpoint = `http://localhost:8000/professors/pinned?puid=${localStorage.getItem("user_sl2",)}&suid=${studentid}`;
+            const endpoint = `${process.env.NEXT_PUBLIC_API_ROUTE}/professors/pinned?puid=${localStorage.getItem("user_sl2",)}&suid=${studentid}`;
             const options = {
                 method: "PATCH",
                 headers: {
