@@ -45,7 +45,7 @@ export default function StudentAlertBox() {
 			};
 	
 			fetch(
-				`http://localhost:8000/students/courses/${query}`,
+				`${process.env.NEXT_PUBLIC_API_ROUTE}/students/courses/${query}`,
 				options,
 			)
 				.then((res) => {
