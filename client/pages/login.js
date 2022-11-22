@@ -33,8 +33,7 @@ export default function Login() {
       router.replace('/')
     }
     else{
-      console.log("Wrong username or password.")
-	  setToastOpacity(1)
+	    setToastOpacity(1)
 	  const timer = setTimeout(() => {
 		  setToastOpacity(0)
   	  }, 5000);

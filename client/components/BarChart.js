@@ -8,11 +8,9 @@ export default function BarChart(props) {
     useEffect(() => {
     //   setData([...props.studentList,...props.studentList])
 		setData(props.studentList)
-		console.log("herrrrr",props.studentList);
     }, [props.studentList])
     
 	const svgRef = useRef(); //This will be needed when create the svg for the chart
-	console.log(data[2]);
 	useEffect(() => {
 		drawBarChart();
 	}, [data]);
@@ -49,7 +47,6 @@ export default function BarChart(props) {
 
 		// Setting the scaling
 		// Add X axis
-		console.log(data);
 		var x = d3
 			.scaleBand()
 			.domain(data.map((d) => d.username))
@@ -76,7 +73,6 @@ export default function BarChart(props) {
 		// Stack the data
 		let stackedData = d3.stack().keys(["success", "failure"])(data);
 
-		console.log("stackedData ", stackedData);
 
 		var tipInfo = d3.select('#tipInfo');
 
@@ -87,12 +83,10 @@ export default function BarChart(props) {
 			.enter()
 			.append("g")
 			.attr("fill", function (d) {
-				console.log(d.key);
 				return color(d.key);
 			})
 			.selectAll("rect")
 			.data(function (d) {
-				console.log("data", d);
 				return d;
 			})
 			.enter()
