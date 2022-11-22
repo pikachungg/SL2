@@ -24,53 +24,55 @@ export default function StudentLineChart(props) {
 		return split[0] + "/" + split[1];
 	}
 
-    const svgRef = useRef(); //This will be needed when create the svg for the chart
-	useEffect(() => {
-
+    function formatDate(days){
         let sortinglogs = Object.entries(data).sort(function(a, b) {
             return new Date(b.datetime) - new Date(a.datetime)
         })
 
-		let weekRange = []
+        let weekRange = []
 
-		if(Object.keys(sortinglogs).length !== 0) {
-			let objLogs = []
-			let dates = new Map()
-			for(let i = 0; i < sortinglogs.length; i++) {
-				objLogs.push({ date: sortinglogs[i][0], stats: sortinglogs[i][1] })
-				dates.set(sortinglogs[i][0], i)
-			}
+        if(Object.keys(sortinglogs).length !== 0) {
+            let objLogs = []
+            let dates = new Map()
+            for(let i = 0; i < sortinglogs.length; i++) {
+                objLogs.push({ date: sortinglogs[i][0], stats: sortinglogs[i][1] })
+                dates.set(sortinglogs[i][0], i)
+            }
 
-			// last item in the sorted logs is the most recent, convert it to date
-			let latestDate = dateStringToDate(
-				objLogs[objLogs.length - 1].date
-			)
-			for(let i = 7; i >= 0; i--) {
-				let newDate = new Date(latestDate)
-				newDate.setDate(newDate.getDate() - i)
-				let dateStr = dateToDateString(newDate)
+            // last item in the sorted logs is the most recent, convert it to date
+            let latestDate = dateStringToDate(
+                objLogs[objLogs.length - 1].date
+            )
+            for(let i = days; i >= 0; i--) {
+                let newDate = new Date(latestDate)
+                newDate.setDate(newDate.getDate() - i)
+                let dateStr = dateToDateString(newDate)
 
-				if(dates.has(dateStr)) {
-					weekRange.push(
-						{
-							date: getdateMonthDay(dateStr)
-							, success: objLogs[dates.get(dateStr)].stats.success
-							, failure: objLogs[dates.get(dateStr)].stats.failure
-						}
-					)
-				} else {
-					weekRange.push(
-						{
-							date: getdateMonthDay(dateStr)
-							, success: 0
-							, failure: 0
-						}
-					)
-				}
-			}
-		}
-		drawLineChart(weekRange);
-        console.log("weekRange",weekRange);
+                if(dates.has(dateStr)) {
+                    weekRange.push(
+                        {
+                            date: getdateMonthDay(dateStr)
+                            , success: objLogs[dates.get(dateStr)].stats.success
+                            , failure: objLogs[dates.get(dateStr)].stats.failure
+                        }
+                    )
+                } else {
+                    weekRange.push(
+                        {
+                            date: getdateMonthDay(dateStr)
+                            , success: 0
+                            , failure: 0
+                        }
+                    )
+                }
+            }
+        }
+        return weekRange;
+    }
+
+    const svgRef = useRef(); //This will be needed when create the svg for the chart
+	useEffect(() => {
+		drawLineChart(formatDate(7));
 	}, [data]);
 	
     function drawLineChart(weekRange){
@@ -92,6 +94,21 @@ export default function StudentLineChart(props) {
                 "translate(" + margin.left + "," + margin.top + ")",
             );
 
+        var ratio = 0;
+        if (weekRange.length == 8){
+            ratio = 1;
+        } else if (weekRange.length == 16){
+            ratio = 3;
+        } else if (weekRange.length == 31){
+            ratio = 7;
+        } else if (weekRange.length == 61){
+            ratio = 14;
+        } else if (weekRange.length == 91){
+            ratio = 21;
+        } else if (weekRange.length == 121){
+            ratio = 28;
+        }
+
         // Setting the scaling
 		// Add X axis
 		var x = d3
@@ -102,7 +119,16 @@ export default function StudentLineChart(props) {
 			.paddingInner(1);
 		svg.append("g")
 			.attr("transform", "translate(0," + height + ")")
-			.call(d3.axisBottom(x));
+            .attr("class","myXaxis")
+			.call(d3.axisBottom(x).tickValues(x.domain().filter(function(d, idx) { return idx%ratio==0 })));
+        
+        svg.selectAll(".myXaxis")
+            .transition()
+            .duration(1000);
+
+        svg.selectAll(".myYaxis")
+            .transition()
+            .duration(1000);
 
         var maxHeight = 0;
         var maxFailure = Math.max(...weekRange.map((d) => d.failure));
@@ -125,11 +151,15 @@ export default function StudentLineChart(props) {
             .scaleLinear()
             .domain([0, maxHeight])
             .range([height, 0]);
-        svg.append("g").call(d3.axisLeft(y).tickValues(yrange).tickFormat((d,i) => yrange[i]));
+        svg.append("g")
+            .attr("class","myYaxis")
+            .call(d3.axisLeft(y).tickValues(yrange).tickFormat((d,i) => yrange[i]));
 
         // Add the line
         svg.append("path")
             .datum(weekRange)
+            .transition()
+            .duration(100)
             .attr("fill", "none")
             .attr("stroke", "#64C839")
             .attr("stroke-width", 3)
@@ -146,11 +176,13 @@ export default function StudentLineChart(props) {
             .attr("stroke", "none")
             .attr("cx", function(d) { return x(d.date) })
             .attr("cy", function(d) { return y(d.success) })
-            .attr("r", 4)
+            .attr("r", 2.5)
 
         // Add the line
         svg.append("path")
             .datum(weekRange)
+            .transition()
+            .duration(100)
             .attr("fill", "none")
             .attr("stroke", "#FF2A2A")
             .attr("stroke-width", 3)
@@ -168,11 +200,36 @@ export default function StudentLineChart(props) {
             .attr("stroke", "none")
             .attr("cx", function(d) { return x(d.date) })
             .attr("cy", function(d) { return y(d.failure) })
-            .attr("r", 5)
+            .attr("r", 2.5)
     }
 
+    const options = [
+        {value: 7, text: 'Last 7 days'},
+        {value: 15, text: 'Last 15 days'},
+        {value: 30, text: 'Last 30 days'},
+        {value: 60, text: 'Last 60 days'},
+        {value: 90, text: 'Last 90 days'},
+        {value: 120, text: 'Last 120 days'}
+      ];
+
+    const [selected, setSelected] = useState(options[0].value);
+
+    const handleChange = event => {
+        setSelected(event.target.value);
+        d3.select("#bar").select('svg').remove();
+        drawLineChart(formatDate(event.target.value));
+      };
+
     return (
-        <div>
+        <div className={styles.lineChart}>
+            <label for="date" id={styles.selectLabel}>Choose a date range: </label>
+            <select id={styles.selectButton} value={selected} onChange={(e) => handleChange(e)}>
+                {options.map(option => (
+                    <option key={option.value} value={option.value}>
+                     {option.text}
+                    </option>
+                ))}
+            </select>
             <div className={styles.LineChart} id="bar">
 				<svg ref={svgRef}></svg>
 			</div>

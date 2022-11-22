@@ -1,4 +1,12 @@
+.lineChart{
+    margin-top: 6%;
+}
+
 .LineChart{
-    margin-top: 8%;
+    margin-top: 2%;
     margin-left: 2%;
+}
+
+#selectLabel{
+    margin-left: 6%;
 }
