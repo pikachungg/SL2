@@ -45,7 +45,6 @@ export default function CoursePage(){
         }
     }, [courseid])
 
-	console.log(tableData) //Delete this later
 
     useEffect(() => {
 		if (courseid){

@@ -10,7 +10,6 @@ export default function PinnedStudents(props) {
 	if (props.pinnedStudents === undefined) return <p>Loading</p>
 
 	const removePin = (suid) => {
-		console.log(suid)
 		const endpoint = `${process.env.NEXT_PUBLIC_API_ROUTE}/professors/pinned?puid=${localStorage.getItem(
 			"user_sl2",
 		)}&suid=${suid}`;

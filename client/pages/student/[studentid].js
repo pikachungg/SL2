@@ -67,7 +67,6 @@ export default function StudentPage(){
         return newData
     }
 
-    console.log(graphData)
 
     if (!studentid) return 'loading'
 

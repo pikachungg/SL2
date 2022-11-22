@@ -1,6 +1,5 @@
 import styles from '../styles/Toast.module.css'
 import { RiErrorWarningLine, RiCloseFill } from 'react-icons/ri'
-import { IconContext } from "react-icons";
 
 export default function Toast(props) {
 
