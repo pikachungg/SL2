@@ -18,6 +18,7 @@ export default function Login() {
     const JSONdata = JSON.stringify(data)
 
     const endpoint = `${process.env.NEXT_PUBLIC_API_ROUTE}/login`
+    console.log(endpoint)
     const options = {
       method: 'POST',
       headers: {
