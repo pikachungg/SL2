@@ -7,7 +7,7 @@
 This folder contains the API code.
 - Express.js App http://localhost:8000
 - MongoDB Integration
-- Swagger UI Documentation
+- Swagger UI Documentation http://localhost:8000/api-docs or https://api.dragoffs.com/api-docs/
 
 2. **client**
 
