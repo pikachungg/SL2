@@ -6,7 +6,7 @@ export default function StudentLoginHistory(props){
     const [sortedLogs, setSortedLogs] = useState([])
 
     useEffect(() => {
-        const endpoint = `http://localhost:8000/students/id/${props.studentid}`;
+        const endpoint = `${process.env.NEXT_PUBLIC_API_ROUTE}/students/id/${props.studentid}`;
         const options = {
             method: "GET",
             headers: {

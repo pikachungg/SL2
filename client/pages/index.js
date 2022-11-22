@@ -19,7 +19,7 @@ export default function Home() {
 
 	useEffect(() => {
 		if (localStorage.getItem("user_sl2")) {
-			const endpoint = `http://localhost:8000/professors/uid/${localStorage.getItem(
+			const endpoint = `${process.env.NEXT_PUBLIC_API_ROUTE}/professors/uid/${localStorage.getItem(
 				"user_sl2",
 			)}`;
 			const options = {
@@ -43,7 +43,7 @@ export default function Home() {
 	}, []);
 
 	const redirectCourse = (course) => {
-		router.push(`http://localhost:3000/course/${course}`)
+		router.push(`/course/${course}`)
 	}
 
 	function arrayRemove(arr, value) { 

@@ -13,7 +13,7 @@ export default function StudentAlertBox() {
 
 	useEffect(() => {
 		if (localStorage.getItem("user_sl2")) {
-			const endpoint = `http://localhost:8000/professors/uid/${localStorage.getItem(
+			const endpoint = `${process.env.NEXT_PUBLIC_API_ROUTE}/professors/uid/${localStorage.getItem(
 				"user_sl2",
 			)}`;
 			const options = {
@@ -45,7 +45,7 @@ export default function StudentAlertBox() {
 			};
 	
 			fetch(
-				`http://localhost:8000/students/courses/${query}`,
+				`${process.env.NEXT_PUBLIC_API_ROUTE}/students/courses/${query}`,
 				options,
 			)
 				.then((res) => {

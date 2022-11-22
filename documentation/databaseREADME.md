@@ -1,7 +1,7 @@
 # SL2 Database Documentation
 
-## MangoDB 
-For our SL2 product, we are utilizing MangoDB to store our parsed log data, student/professor information, and classes/courses information.
+## MongoDB 
+For our SL2 product, we are utilizing MongoDB to store our parsed log data, student/professor information, and classes/courses information.
 Our database is hosted on Mongo Atlas, a cloud-based database hosting service that has free options for storing information. 
 The SL2 cluster is currently owned by Nathan Radin, Database Admin, but ownership can be moved to another admin when handoff occurs.
 
