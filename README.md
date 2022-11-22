@@ -19,7 +19,7 @@ This folder contains the API code.
 2. **client**
 
 This folder contains the frontend code.
-- Next.js App http://localhost:3000/ or https://sl2-n5yibnqyi-dragoffs.vercel.app/login
+- Next.js App http://localhost:3000/ or https://dragoffs.com
 
 ## Requirements
 
