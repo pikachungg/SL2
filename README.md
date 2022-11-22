@@ -1,5 +1,12 @@
 # SL2
 
+## Index
+
+1. [Folder contents](https://github.com/Dragoffs/SL2#folder-contents)
+2. [Requirements](https://github.com/Dragoffs/SL2#requirements)
+3. [How to run](https://github.com/Dragoffs/SL2#how-to-run)
+4. [How to run locally](https://github.com/Dragoffs/SL2#how-to-run-locally)
+
 ## Folder contents
 
 1. **backend**
@@ -46,7 +53,7 @@ This folder contains the frontend code.
 4. Open up `.env.local`
 5. Swap the values between `NEXT_PUBLIC_API_ROUTE` and `NEXT_PUBLIC_API_LOCAL`
 
-### Linux 
+### Linux / Mac
 
 1. Move to the root directory `SL2`
 2. Run `npm start`
