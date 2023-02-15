@@ -8,6 +8,8 @@ import Head from 'next/head'
 import { SiHomeassistant } from "react-icons/si";
 import { IconContext } from "react-icons";
 
+
+
 export default function Home() {
 	const router = useRouter();
 
